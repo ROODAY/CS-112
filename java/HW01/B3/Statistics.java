@@ -5,4 +5,4 @@
  * Purpose: This class ...
  */
 
-package java.HW01.B3;
+package B3;
