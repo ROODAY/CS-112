@@ -5,7 +5,7 @@
  * Purpose: This class prints out the day of the week that Unix was born
  */
 
-package B2;
+package HW01.B2;
 
 public class PrintDay {
     public static void main(String[] args) {

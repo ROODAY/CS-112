@@ -5,7 +5,7 @@
  * Purpose: This class prints out a haiku, using two variables for the author and year and only one println statement
  */
 
-package B1;
+package HW01.B1;
 
 public class Haiku {
     public static void main(String[] args) {
