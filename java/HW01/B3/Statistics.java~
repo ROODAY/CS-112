@@ -19,11 +19,11 @@ public class Statistics {
         int numThree = userInput.nextInt();
 
         int numSum = numOne + numTwo + numThree;
-        int numMax = Math.max(Math.max(numOne, numTwo), numThree);
-        int numMin = Math.min(Math.min(numOne, numTwo), numThree);
+        int numMax = max(max(numOne, numTwo), numThree);
+        int numMin = min(min(numOne, numTwo), numThree);
         int numRange = numMax - numMin;
-        double numMean = numSum / 3.0;
-        double standardDeviation = Math.sqrt((Math.pow(numOne - numMean, 2) + Math.pow(numTwo - numMean, 2) + Math.pow(numThree - numMean, 2)) / 3.0);
+        double numMean = numSum / 3;
+        double standardDeviation = sqrt((pow(numOne - numMean, 2) + pow(numTwo - numMean, 2) + pow(numThree - numMean, 2)) / 3);
         int numMid = numOne + numTwo + numThree - numMax - numMin;
 
         System.out.printf("The sum is %d\n", numSum);

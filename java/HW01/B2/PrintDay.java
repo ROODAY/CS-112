@@ -1,6 +1,6 @@
 /*
  * File: PrintDay.java
- * Date: 
+ * Date: 09/08/2016
  * Author:  Rudhra Raveendran (rooday@bu.edu)
  * Purpose: This class prints out the day of the week that Unix was born
  */

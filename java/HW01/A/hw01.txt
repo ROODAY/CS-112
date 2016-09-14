@@ -1,10 +1,27 @@
+Rudhra Raveendran
+
 1.
-2.
-3.
+    a. 1
+    b. 10
+    c. ~ 9.966
+    d. 9
+    e. 10
+2. Values where N is a power of 2.
+3. All values of N.
 4.
-5.
+    a. a == b
+    b. a < b
+    c. a > b
+    d. a < b
+    e. a > b
+5. (b) will throw an error.
 6.
-7.
-8.
-9.
-10.
+    a. "2bc"
+    b. "5bc"
+    c. "5bc"
+    d. "bc5"
+    e. "bc23"
+7. 2, 12, 25, and 45 will take 3 comparisons to find.
+8. Not all unsuccessful searches will take the same number of comparisons. For example, the number 6 took 4 comparisons to complete, and the number 55 took 5 comparisons to complete.
+9. The average number of comparisons for even numbers only, using linear search, is 4.8 comparisons
+10. The average number of comparisons for each unique number in the list is 4 comparisons
