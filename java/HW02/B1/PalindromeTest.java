@@ -37,7 +37,7 @@ public class PalindromeTest {
             boolean isPalindrome = true;
 
             for (int i = 0; i < cleanedLine.length(); i++) {
-                if (!(Chracter.toString(cleanedLine.charAt(i)).equals(Chracter.toString(cleanedLine.charAt(cleanedLine.length - 1 - i))))) {
+                if (!(Character.toString(cleanedLine.charAt(i)).equals(Character.toString(cleanedLine.charAt(cleanedLine.length() - 1 - i))))) {
                     isPalindrome = false;
                 }
             }
