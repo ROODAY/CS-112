@@ -2,14 +2,24 @@ Rudhra Raveendran
 09/20/2016
 
 1.
-2.
-3.
-4.
+    - The "Public" on line 1 should be lowercase
+    - Method f() should be declared to return an int, not an integer
+    - Method f() should have a type for its parameter, i.e. f(int x)
+    - The if statement on line 3 requires a ==, not a =
+    - The if statement on line 3 is missing its curly braces
+    - The main method should have parentheses around its parameters, not brackets
+    - There is an extraneous curly brace on line 7
+    - Line 8 should have System.out.println, not System.println
+    - Line 8 is missing a semicolon
+    - There is an extraneous end parentheses on line 10
+2. It will first print 3.0, because (int) will truncate 3.1415 to 3, and (double) will make the 3 become 3.0. Then, it will infinitely print out 10 on a new line, because the while loop does not have curly braces surrounding the print statement and i being decremented. Therefore, only the print is considered part of the while loop, making it run forever.
+3. It will print out "1 2 4 8". This is because the inner loop iterates through the previous elements, and adds them to the current element, which makes each element double the last.
+4. It will print out "2 2 6 4 5 6". This is is because it doubles odd numbers smaller than 4, and ignores even numbers and odd numbers greater than 4.
 5.
-	A.
-	B.
-	C.
-	D.
-	E.
-	F.
-	G.
+	A. 1-9
+	B. 2-8
+	C. 2
+	D. 3-8
+	E. 5-7
+	F. 6
+	G. none (assuming that location 9 is a line above the initialization of G)

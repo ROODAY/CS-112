@@ -2,7 +2,7 @@
  * File: Histogram.java
  * Author: Rudhra Raveendran (rooday@bu.edu)
  * Date: 09/20/2016
- * Purpose: 
+ * Purpose: Creates a histogram based on user input of numbers
  * Credits: Used example 2 from top answer of https://stackoverflow.com/questions/3059333/validating-input-using-java-util-scanner to terminate input loop when user types 'done'
  */
 
