@@ -25,7 +25,7 @@
     
     // Your comment here, describing this method
     public static char charAt(char[] s, int i) {
-        if (i < 0 || i > s.length) {
+        if (i < 0 || i >= s.length) {
             return errorCharacter;
         } else {
             return s[i];
@@ -34,32 +34,67 @@
 
     // Your comment here, describing this method
     public static int length(char[] s) {
-        // Your code here
-        return errorInteger;                    // return error, just to get it to compile 
+        return s.length;
     }
 
     // Your comment here, describing this method  
     public static char[] subString(char[] s, int l, int r) {
-        // Your code here
-        return errorString;                     // return error String, just to get it to compile
+        if (l < 0 || l >= s.length || r < 0 || r > s.length) {
+            return errorString;
+        } else {
+            char[] sub = new char[r - l];
+            for (int i = l, j = 0; i < r; i++, j++) {
+                sub[j] = s[i];
+            }
+            return sub;
+        }
     }
 
     // Your comment here, describing this method
     public static char[] toLowerCase(char[] c) {
-        // Your code here
-        return errorString;                     // return error String, just to get it to compile
+        char[] lowercase = new char[c.length];
+        for (int i = 0; i < c.length; i++) {
+            char letter = c[i];
+            if (((int) letter) >= 65 && ((int) letter) <= 90) {
+                char lowerletter = (char) (((int) letter) + 32);
+                lowercase[i] = lowerletter;
+            } else {
+                lowercase[i] = letter;
+            }
+        }
+        return lowercase;
     }
 
     // Your comment here, describing this method
     public static char[] concatenate(char[] a, char[] b) {
-        // Your code here
-        return errorString;                     // return error, just to get it to compile
+        char[] c = new char[a.length + b.length];
+        for (int i = 0; i < a.length; i++) {
+            c[i] = a[i];
+        }
+        for (int i = a.length, j = 0; j < b.length; i++, j++) {
+            c[i] = b[j];
+        }
+        return c;
     }
 
     // Your comment here, describing this method
     public static int intValueOf(char[] a) {
-        // Your code here
-        return errorInteger;                    // return error, just to get it to compile 
+        boolean isNegative = false;
+        int[] nums = new int[a.length];
+        for (int i = 0; i < a.length; i++) {
+            if (i == 0) {
+                if (((int) a[i]) == 45) {
+                    isNegative = true;
+                } else if (((int) a[i]) == 43) {
+                    isNegative = false;
+                }
+            }
+            if (((int) a[i]) < 48 || ((int) a[i]) > 57) {
+                return errorInteger;
+            else {
+                
+            }
+        }
     }
 
     // Your comment here, describing this method
