@@ -11,32 +11,32 @@ import java.util.Scanner;
 public class PalindromeTest { 
     public static void main(String[] args) {
         System.out.println("\nWelcome to the Palindrome Test Program!");
-
+        
         Scanner userInput = new Scanner(System.in);
-
+        
         System.out.println("\nType in a sentence or Control-d to end:"); 
-
+        
         while(userInput.hasNextLine()) {
             String line = userInput.nextLine();
             line = line.toLowerCase();
-
+            
             char[] charsToRemove = { '.', ',', ':', ';', '!', '?', '"', '\'', '/', '-', '(', ')', '~'};
             for (int i = 0; i < charsToRemove.length; i++) {
                 line = line.replace(Character.toString(charsToRemove[i]), "");
             }
-
+            
             String cleanedLine = "";
-
+            
             for (int i = 0; i < line.length(); i++) {
                 char a = line.charAt(i);
                 if (Character.isWhitespace(a) == false) {
                     cleanedLine += Character.toString(a);
                 }
             }
-
+            
             boolean isPalindrome = true;
             int max = cleanedLine.length() - 1;
-
+            
             for (int i = 0; i < cleanedLine.length(); i++) {
                 if (!(Character.toString(cleanedLine.charAt(i)).equals(Character.toString(cleanedLine.charAt(max - i))))) {
                     isPalindrome = false;

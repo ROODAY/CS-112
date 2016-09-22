@@ -5,8 +5,8 @@
  * Purpose: This class tests various methods on char arrays using only one library (Java Standard Math Library)
  */
 
- public class MyStringArray { 
-
+public class MyStringArray { 
+    
     // Declare various final (i.e., constant) values to be used to indicate errors of various types
     
     public static final char[] errorString  = { 'N', 'a', 'S' };   // These next three are our choices for error outputs
@@ -22,12 +22,12 @@
             return s[i];
         }
     }
-
+    
     // length(s) returns the length of char array s
     public static int length(char[] s) {
         return s.length;
     }
-
+    
     // subString(s, l, r) returns a char array made up of chars from s, starting at index l and ending at index r - 1
     // it will return an erro value if the given indices are out of range
     public static char[] subString(char[] s, int l, int r) {
@@ -41,7 +41,7 @@
             return sub;
         }
     }
-
+    
     // toLowerCase(c) returns a char array the same as c, except with all uppercase chars converted to their lowercase counterparts
     // chars in c that are already lowercase are simply copied to the new char array
     public static char[] toLowerCase(char[] c) {
@@ -57,7 +57,7 @@
         }
         return lowercase;
     }
-
+    
     // concatenate(a, b) returns a char array consisting of the chars in a followed by the chars in b
     public static char[] concatenate(char[] a, char[] b) {
         char[] c = new char[a.length + b.length];
@@ -69,7 +69,7 @@
         }
         return c;
     }
-
+    
     // intValueOf(a) returns an integer representation of the chars in a
     // ex. ['2', '3', '4'] returns 234
     // if a non-digit is present in a, an error value is returned
@@ -107,7 +107,7 @@
         }
         return value;
     }
-
+    
     // doubleValueOf(a) returns an floating point representation of the chars in a
     // ex. ['2', '.', '3', '4'] returns 2.34
     // if a non-digit or extra decimals are present in a, an error value is returned
@@ -174,7 +174,7 @@
         }
         return value;
     }
-
+    
     // int2MyString(n) returns a char array where each char is a digit in n
     // ex. 234 returns ['2', '3', '4']
     public static char[] int2MyString(int n) {
@@ -201,7 +201,7 @@
         }
         return result;
     }
-
+    
     // This method provided for debugging
     public static void printCharArray(char[] A) {
         for(int i = 0; i < A.length; ++i) {
@@ -209,10 +209,10 @@
         }
         System.out.println(); 
     }
-
-
+    
+    
     public static void main(String[] args) {
-
+        
         System.out.println("\nGrading program for MyStringArray library\n");
         int testNum = 0; 
         
@@ -334,5 +334,5 @@
         
         
     }
-
+    
 }
