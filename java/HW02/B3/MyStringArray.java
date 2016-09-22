@@ -2,16 +2,7 @@
  * File: MyStringArray.java
  * Author: Rudhra Raveendran (rooday@bu.edu)
  * Date: 09/20/2016
- * Purpose: This is a template for the solution to HW02, Problem B.4; the program
- *      compiles and runs, but fails the correctness tests in the "Unit Test Main" method. You should
- *      develop one method at a time, and verify that each satisfies the test before moving on. 
- * NOTE: You MUST rewrite this header comment to describe your solution.
- *       You MUST follow the Style Guidelines with respect to basic layout (ignore "Naming" for now);
- *       You MUST fill in where indicated in this template, and make any other changes
- *           you wish to satisfy the tests in main, but:
- *       Do NOT change anything in the main method or change the declarations of the error values, or
- *           the basic syntax of the method definitions (i.e., the first line of the method should be the same). 
- *       You MUST test for errors in the appropriate methods by returning the listed error values when appropriate.
+ * Purpose: This class tests various methods on char arrays using only one library (Java Standard Math Library)
  */
 
  public class MyStringArray { 
@@ -23,7 +14,7 @@
     public static final int errorInteger    = Integer.MIN_VALUE;
     public static final double errorDouble  = Double.NaN;          // Nan results when dividing by 0, etc.
     
-    // Your comment here, describing this method
+    // charAt(s, i) returns the char value at index i, or an error value if the index is out of range
     public static char charAt(char[] s, int i) {
         if (i < 0 || i >= s.length) {
             return errorCharacter;
@@ -32,12 +23,13 @@
         }
     }
 
-    // Your comment here, describing this method
+    // length(s) returns the length of char array s
     public static int length(char[] s) {
         return s.length;
     }
 
-    // Your comment here, describing this method  
+    // subString(s, l, r) returns a char array made up of chars from s, starting at index l and ending at index r - 1
+    // it will return an erro value if the given indices are out of range
     public static char[] subString(char[] s, int l, int r) {
         if (l < 0 || l >= s.length || r < 0 || r > s.length) {
             return errorString;
@@ -50,7 +42,8 @@
         }
     }
 
-    // Your comment here, describing this method
+    // toLowerCase(c) returns a char array the same as c, except with all uppercase chars converted to their lowercase counterparts
+    // chars in c that are already lowercase are simply copied to the new char array
     public static char[] toLowerCase(char[] c) {
         char[] lowercase = new char[c.length];
         for (int i = 0; i < c.length; i++) {
@@ -65,7 +58,7 @@
         return lowercase;
     }
 
-    // Your comment here, describing this method
+    // concatenate(a, b) returns a char array consisting of the chars in a followed by the chars in b
     public static char[] concatenate(char[] a, char[] b) {
         char[] c = new char[a.length + b.length];
         for (int i = 0; i < a.length; i++) {
@@ -77,36 +70,136 @@
         return c;
     }
 
-    // Your comment here, describing this method
+    // intValueOf(a) returns an integer representation of the chars in a
+    // ex. ['2', '3', '4'] returns 234
+    // if a non-digit is present in a, an error value is returned
     public static int intValueOf(char[] a) {
-        boolean isNegative = false;
-        int[] nums = new int[a.length];
+        int value = 0;
         for (int i = 0; i < a.length; i++) {
-            if (i == 0) {
-                if (((int) a[i]) == 45) {
-                    isNegative = true;
-                } else if (((int) a[i]) == 43) {
-                    isNegative = false;
-                }
-            }
-            if (((int) a[i]) < 48 || ((int) a[i]) > 57) {
+            if (((int) a[i]) == 45) {
+                continue;
+            } else if (((int) a[i]) == 43) {
+                continue;
+            } else if (((int) a[i]) >= 48 || ((int) a[i]) <= 57) {
+                continue;
+            } else {
                 return errorInteger;
-            else {
-                
             }
         }
+        boolean isNegative = false;
+        if (((int) a[0]) == 45) {
+            isNegative = true;
+            a = subString(a, 1, a.length);
+        } else if (((int) a[0]) == 43) {
+            isNegative = false;
+            a = subString(a, 1, a.length);
+        }
+        for (int i = 0; i < a.length; i++) {
+            value *= 10;
+            if (((int) a[i]) < 48 || ((int) a[i]) > 57) {
+                return errorInteger;
+            } else {
+                value += (((int) a[i]) - 48); // I based this logic off an answer from SO: http://stackoverflow.com/a/30414620
+            }
+        }
+        if (isNegative) {
+            value *= -1;
+        }
+        return value;
     }
 
-    // Your comment here, describing this method
+    // doubleValueOf(a) returns an floating point representation of the chars in a
+    // ex. ['2', '.', '3', '4'] returns 2.34
+    // if a non-digit or extra decimals are present in a, an error value is returned
     public static double doubleValueOf(char[] a) {
-        // Your code here
-        return Double.NaN;                      // return error, just to get it to compile 
+        boolean isNegative = false;
+        if (((int) a[0]) == 45) {
+            isNegative = true;
+            a = subString(a, 1, a.length);
+        } else if (((int) a[0]) == 43) {
+            isNegative = false;
+            a = subString(a, 1, a.length);
+        }
+        if ((a[a.length - 1] == '.') && a.length > 1) {
+            a = subString(a, 0, a.length - 1);
+        }
+        double value = 0.0;
+        double divideBy = 0;
+        boolean decimalExists = false;
+        int decimalIndex = 0;
+        for (int i = 0; i < a.length; i++) {
+            if (((int) a[i]) == 46 && !decimalExists) {
+                decimalExists = true;
+                divideBy = Math.pow(10, ((a.length - 1) - i));
+                decimalIndex = i;
+                continue;
+            } else if (((int) a[i]) == 46 && decimalExists) {
+                return Double.NaN;
+            }
+        }
+        for (int i = 0; i < a.length; i++) {
+            if (((int) a[i]) == 45) {
+                continue;
+            } else if (((int) a[i]) == 43) {
+                continue;
+            } else if (((int) a[i]) >= 48 || ((int) a[i]) <= 57) {
+                continue;
+            } else {
+                return Double.NaN;
+            }
+        }
+        if (a.length == 1 && decimalExists) {
+            a = new char[1];
+            a[0] = '0';
+        } else if (decimalExists) {
+            char[] b = subString(a, 0, decimalIndex);
+            char[] c = subString(a, decimalIndex + 1, a.length);
+            a = concatenate(b, c);
+        }
+        for (int i = 0; i < a.length; i++) {
+            value *= 10;
+            if (((int) a[i]) == 46) {
+                continue;
+            } else if (((int) a[i]) < 48 || ((int) a[i]) > 57) {
+                return Double.NaN;
+            } else {
+                value += (((int) a[i]) - 48);
+            }
+        }
+        if (decimalExists) {
+            value /= divideBy;
+        }
+        if (isNegative) {
+            value *= -1;
+        }
+        return value;
     }
 
-    // Your comment here, describing this method
+    // int2MyString(n) returns a char array where each char is a digit in n
+    // ex. 234 returns ['2', '3', '4']
     public static char[] int2MyString(int n) {
-        // Your code here
-        return errorString;                      // return error, just to get it to compile 
+        boolean isNegative = false;
+        int count = 0;
+        if (n < 0) {
+            isNegative = true;
+            count += 1;
+            n *= -1;
+        }
+        int digitTest = n;
+        while (digitTest > 0) {
+            digitTest /= 10;
+            count += 1;
+        }
+        char[] result = new char[count];
+        for (int i = result.length - 1; i >= 0; i--) {
+            if (isNegative && i == 0) {
+                result[i] = '-';
+            } else {
+                result[i] = (char) ((n % 10) + 48);
+                n /= 10;
+            }
+        }
+        return result;
     }
 
     // This method provided for debugging
