@@ -17,18 +17,15 @@ public class BigInt  {
     
     public static int[] intToBigInt(int n) {
     	int[] result = new int[SIZE];
-    	if (n < 0) {
-    		return NaBI;
-    	} else {
-    		int index = 19;
-    		while (n > 0) {
-    			int digit = n % 10;
-    			result[index] = digit;
-    			n /= 10;
-    			index--;
-    		}
-    		return result;
-    	}
+    	if (n < 0) return NaBI;
+		int index = 19;
+		while (n > 0) {
+			int digit = n % 10;
+			result[index] = digit;
+			n /= 10;
+			index--;
+		}
+		return result;
     }
     
     public static int[] stringToBigInt(String s) {
