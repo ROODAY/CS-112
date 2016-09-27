@@ -1,0 +1,15 @@
+{
+	"build_cache":
+	{
+		"HW01.B1.Haiku": 1473958177,
+		"HW01.B2.PrintDay": 1473958177,
+		"HW01.B3.Statistics": 1473958177,
+		"HW02.B1.PalindromeTest": 1474514882,
+		"HW02.B1.WordPalindromeTest": 1474514885,
+		"HW02.B2.Histogram": 1474514873,
+		"HW02.B3.MyStringArray": 1474514876,
+		"HW03.B1.PalindromeRedux": 1474579763,
+		"HW03.B2.BigInt": 1474942000
+	},
+	"creation_time": 1474941431
+}
