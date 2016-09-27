@@ -1,3 +1,4 @@
 bin
 *.class
 *.java~
+.javatar-cache
