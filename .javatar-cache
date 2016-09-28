@@ -1,0 +1,22 @@
+{
+	"build_cache":
+	{
+		"HW01.B1.Haiku": 1473823186,
+		"HW01.B2.PrintDay": 1473823192,
+		"HW01.B3.Statistics": 1473825151,
+		"HW02.B1.PalindromeTest": 1474818062,
+		"HW02.B1.WordPalindromeTest": 1474756443,
+		"HW02.B2.Histogram": 1474756443,
+		"HW02.B3.MyStringArray": 1474818104,
+		"HW03.B1.PalindromeRedux": 1474818115,
+		"java.HW01.B1.Haiku": 1473823186,
+		"java.HW01.B2.PrintDay": 1473823192,
+		"java.HW01.B3.Statistics": 1473825151,
+		"java.HW02.B1.PalindromeTest": 1474818062,
+		"java.HW02.B1.WordPalindromeTest": 1474756443,
+		"java.HW02.B2.Histogram": 1474756443,
+		"java.HW02.B3.MyStringArray": 1474818104,
+		"java.HW03.B1.PalindromeRedux": 1474818115
+	},
+	"creation_time": 1474829603
+}

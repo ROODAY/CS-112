@@ -6,6 +6,7 @@
  */
 
 package HW02.B1;
+
 import java.util.Scanner;
 
 public class PalindromeTest { 
