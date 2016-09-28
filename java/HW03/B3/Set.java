@@ -2,7 +2,8 @@
  * File: Set.java
  * Author: Rudhra Raveendran (rooday@bu.edu)
  * Date: 09/26/2016
- * Purpose: This class 
+ * Purpose: This class implements a set, a collection in which 
+ * order does not matter and there are no dupliclates
  */
 
 package HW03.B3;
