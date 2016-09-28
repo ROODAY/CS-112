@@ -16,93 +16,93 @@ public class BigInt  {
     public static final int[] NaBI = { -1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 };  // error value
     
     public static int[] intToBigInt(int n) {
-    	int[] result = new int[SIZE];
-    	if (n < 0) return NaBI;
-		int index = 19;
-		while (n > 0) {
-			int digit = n % 10;
-			result[index] = digit;
-			n /= 10;
-			index--;
-		}
-		return result;
+        int[] result = new int[SIZE];
+        if (n < 0) return NaBI;
+        int index = 19;
+        while (n > 0) {
+            int digit = n % 10;
+            result[index] = digit;
+            n /= 10;
+            index--;
+        }
+        return result;
     }
     
     public static int[] stringToBigInt(String s) {
-    	int[] result = new int[SIZE];
-    	if (s.length() > SIZE) return NaBI;
-    	int strIndex = s.length() - 1;
-    	int index = 19;
-    	while (strIndex >= 0) {
-    		int digit = (int) s.charAt(strIndex);
-    		if (digit < 48 || digit > 57) return NaBI;
-    		result[index] = digit - 48;
-    		strIndex--;
-    		index--;
-    	}
-    	return result;
+        int[] result = new int[SIZE];
+        if (s.length() > SIZE) return NaBI;
+        int strIndex = s.length() - 1;
+        int index = 19;
+        while (strIndex >= 0) {
+            int digit = (int) s.charAt(strIndex);
+            if (digit < 48 || digit > 57) return NaBI;
+            result[index] = digit - 48;
+            strIndex--;
+            index--;
+        }
+        return result;
     }
-
-
+    
+    
     public static String bigIntToString(int[] A) {
-    	int startIndex = SIZE;
-    	for (int i = 0; i < SIZE; i++) {
-    		int test = A[i];
-    		if (A[i] == 0) {
-    			continue;
-    		} else {
-    			startIndex =  i;
-    			break;
-    		}
-    	}
-    	String s = "";
-    	for (int i = startIndex; i < SIZE; i++) {
-    		if (A[i] < 0 || A[i] > 9) return "NaBI";
-    		s += A[i];
-    	}
-    	if (s.equals("")) return "0";
-    	return s; 
+        int startIndex = SIZE;
+        for (int i = 0; i < SIZE; i++) {
+            int test = A[i];
+            if (A[i] == 0) {
+                continue;
+            } else {
+                startIndex =  i;
+                break;
+            }
+        }
+        String s = "";
+        for (int i = startIndex; i < SIZE; i++) {
+            if (A[i] < 0 || A[i] > 9) return "NaBI";
+            s += A[i];
+        }
+        if (s.equals("")) return "0";
+        return s; 
     }
     
     // Compare the two big integers A and B and return -1, 0, or 1, depending
     //  on whether A < B, A == B, or A > B, respectively.
     
     public static int compareTo(int[] A, int[] B) {
-    	for (int i = 0; i < SIZE; i++) {
-    		if (A[i] < B[i]) {
-    			return -1;
-    		} else if (A[i] > B[i]) {
-    			return 1;
-    		} else if (A[i] == B[i]) {
-    			continue;
-    		}
-    	}
-    	return 0;   
+        for (int i = 0; i < SIZE; i++) {
+            if (A[i] < B[i]) {
+                return -1;
+            } else if (A[i] > B[i]) {
+                return 1;
+            } else if (A[i] == B[i]) {
+                continue;
+            }
+        }
+        return 0;   
     }
     
     // Add two big integers and return a new array representing their sum; if the result overflows,
     //                                         i.e., contains more than SIZE digits, return NaBI. 
     
     public static int[] add(int[] A, int[] B) {
-    	int[] C = new int[SIZE];
-    	int index = 19;
-    	int carry = 0;
-    	while (index >= 0) {
-			int digit = A[index] + B[index] + carry;
-	    	if (digit > 9) {
-	    		digit %= 10;
-	    		carry = 1;
-	    	} else {
-	    		carry = 0;
-	    	}
-	    	C[index] = digit;
-	    	index--;
-    	}
-	    if (carry > 0) {
-	    	return NaBI;
-	    } else {
-	    	return C;
-	    } 
+        int[] C = new int[SIZE];
+        int index = 19;
+        int carry = 0;
+        while (index >= 0) {
+            int digit = A[index] + B[index] + carry;
+            if (digit > 9) {
+                digit %= 10;
+                carry = 1;
+            } else {
+                carry = 0;
+            }
+            C[index] = digit;
+            index--;
+        }
+        if (carry > 0) {
+            return NaBI;
+        } else {
+            return C;
+        } 
     }
     
     

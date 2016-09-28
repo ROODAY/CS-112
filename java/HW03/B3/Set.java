@@ -3,7 +3,7 @@
  * Author: Rudhra Raveendran (rooday@bu.edu)
  * Date: 09/26/2016
  * Purpose: This class implements a set, a collection in which 
- * order does not matter and there are no dupliclates
+ * order does not matter and there are no duplicates
  */
 
 package HW03.B3;
@@ -50,7 +50,7 @@ public class Set  {
         SIZE = SIZE * 2;
         S = T;
     }
-
+    
     // Returns a string representation of this set
     public String toString()  {
         if (next == 0) return "[]";
@@ -72,7 +72,7 @@ public class Set  {
         if (next == 0) return true;
         return false; 
     }
-      
+    
     // Returns true if k is in this set
     public boolean member(int k) {
         for (int i = 0; i < next; i++) {
@@ -80,8 +80,8 @@ public class Set  {
         }
         return false; 
     }    
-   
-   // Returns true if all elements in this set occur in T, false otherwise
+    
+    // Returns true if all elements in this set occur in T, false otherwise
     public boolean subset(Set T) {
         for (int i = 0; i < next; i++) {
             if (!T.member(S[i])) return false;
@@ -122,7 +122,7 @@ public class Set  {
             S[next] = 0;
         }
     }
-  
+    
     // Returns a set that contains all the elements of this set and T
     public Set union(Set T) {
         Set joinedSet = clone();
@@ -131,7 +131,7 @@ public class Set  {
         }
         return joinedSet;
     }
-   
+    
     public Set intersection(Set T) {
         Set inter = new Set();
         for (int i = 0; i < next; i++) {
@@ -147,7 +147,7 @@ public class Set  {
         }
         return difference;   
     }
-      
+    
     public static void main(String [] args) {
         
         System.out.println("\nUnit Test for Set: note that your answers, when they are");

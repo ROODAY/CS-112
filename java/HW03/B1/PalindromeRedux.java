@@ -2,7 +2,7 @@
  * File: PalindromeRedux.java
  * Author: Rudhra Raveendran (rooday@bu.edu)
  * Date: 09/24/2016
- * Purpose: This class is a fixed version of bugged Palindrom Test class.
+ * Purpose: This class is a fixed version of a bugged Palindrome Test class.
  * It uses a debug method to ensure the palindrome checking logic functions properly.
  */
 
