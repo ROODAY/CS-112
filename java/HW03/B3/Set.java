@@ -13,25 +13,34 @@ public class Set  {
     
     private int[] S;              // array holding the set
     
-    private int next;             // pointer to next available slot in array
+    private int next = 0;             // pointer to next available slot in array
     
-    
+    // Default constructor for an emtpy set
     public Set() {
-        // your code here
+        S = new int[SIZE];
+        next = 0;
     }
     
+    // Constructs a set containing the elements in A
     public Set(int[] A) {
-        // your code here
+        S = new int[SIZE];
+        next = 0;
+        for (int i = 0; i < A.length; i++) {
+            insert(A[i]);
+        }
     }
     
+    // Returns an exact copy of this set
     public Set clone() {
-        // your code here
-        return this;   // just to get it to compile; replace this with something appropriate   
+        int[] ints = new int[next];
+        for (int i = 0; i < next; i++) {
+            ints[i] = S[i];
+        }
+        return new Set(ints); 
     }
     
     // This method reallocates the array S to twice as big and copies all the elements over.
     // It is called only by insert.
-    
     private void resize() {
         int[] T = new int[SIZE * 2];
         for(int i = 0; i < S.length; ++i) {
@@ -40,58 +49,102 @@ public class Set  {
         SIZE = SIZE * 2;
         S = T;
     }
-        
-    public  String toString()  {
-        // your code here
-        return null;   // just to get it to compile; replace null with something appropriate    
+
+    // Returns a string representation of this set
+    public String toString()  {
+        if (next == 0) return "[]";
+        String result = "[";
+        for (int i = 0; i < next; i++) {
+            result += S[i];
+            if (i < next - 1) result += ",";
+        }
+        return result + "]";
     } 
-     
+    
+    // Returns the number of elements in this set
     public int size() {
-        // your code here
-        return 0;   // just to get it to compile; replace 0 with something appropriate    
+        return next;
     }
     
+    // Returns true if this set contains no elements, false otherwise
     public  boolean isEmpty() {
-        // your code here
-        return false;   // just to get it to compile; replace false with something appropriate   
+        if (next == 0) return true;
+        return false; 
     }
       
+    // Returns true if k is in this set
     public boolean member(int k) {
-        // your code here
-        return false;   // just to get it to compile; replace false with something appropriate   
+        for (int i = 0; i < next; i++) {
+            if (S[i] == k) return true;
+        }
+        return false; 
     }    
    
-    public  boolean subset(Set T) {
-        // your code here
-        return false;   // just to get it to compile; replace false with something appropriate   
+   // Returns true if all elements in this set occur in T, false otherwise
+    public boolean subset(Set T) {
+        for (int i = 0; i < next; i++) {
+            if (!T.member(S[i])) return false;
+        }
+        return true;  
     }
     
-    public  boolean equal(Set T) {
-        // your code here
-        return false;   // just to get it to compile; replace false with something appropriate   
+    // Returns true if T contains all the same elements as this set, false otherwise
+    public boolean equal(Set T) {
+        if (T.next == next && subset(T)) return true;
+        return false;
     }
-       
+    
+    // Inserts k into this set if it is not already a member
     public void insert(int k) {
-        // your code here
+        if (next >= S.length) resize();
+        if (!member(k)) {
+            S[next] = k;
+            next++;
+        }
     }
     
+    // Deletes k from this set if it is a member
     public void delete(int k) {
-        // your code here
+        if (member(k)) {
+            int index = 0;
+            for (int i = 0; i < next; i++) {
+                if (S[i] == k) {
+                    index = i;
+                    break;
+                }
+            }
+            S[index] = 0;
+            for (int i = index; i < next - 1; i++) {
+                S[i] = S[i + 1];
+            }
+            next--;
+            S[next] = 0;
+        }
     }
   
+    // Returns a set that contains all the elements of this set and T
     public Set union(Set T) {
-        // your code here
-        return null;   // just to get it to compile; replace null with something appropriate   
+        Set joinedSet = clone();
+        for (int i = 0; i < T.next; i++) {
+            joinedSet.insert(T.S[i]);
+        }
+        return joinedSet;
     }
    
     public Set intersection(Set T) {
-        // your code here
-        return null;   // just to get it to compile; replace null with something appropriate   
+        Set inter = new Set();
+        for (int i = 0; i < next; i++) {
+            if (T.member(S[i])) inter.insert(S[i]);
+        }
+        return inter;  
     }
     
     public Set setdifference(Set T) {
-        // your code here
-        return null;   // just to get it to compile; replace null with something appropriate   
+        Set difference = new Set();
+        for (int i = 0; i < next; i++) {
+            if (!T.member(S[i])) difference.insert(S[i]);
+        }
+        return difference;   
     }
       
     public static void main(String [] args) {
