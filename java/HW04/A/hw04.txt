@@ -1,0 +1,15 @@
+Rudhra Raveendran
+09/29/2016
+
+1. 	There will be an error during compilation. This is because when you implement an interface in Java,
+	you must override all abstract (unimplemented) methods. Since the only change is  peek() to top()
+	in the implementing class, and there is no other override for peek(), the error is thrown.
+2.	This change has no effect on the program, since resize() is not an abstract method of the Stackable
+	interface. Therefore its name can be changed and the AnotherStack class will still be completely implementing
+	the Stackable interface.
+3.	Nothing is shown to happen during the Unit Test, however, making the resize() method public instead of private
+	could lead to efficiency issues as code not part of the AnotherStack class could arbitrarily resize an instance
+	of AnotherStack, even when it's not needed.
+4.	
+5.	This change will give a cannot find symbol error during compilation since a class called "Anotherstack" does not exist.
+6.	
