@@ -9,12 +9,14 @@ package HW04.B3;
 
 public class IntDeque implements Dequeable {
     
-    private int size = 10;
-    private int[] S = new int[size];     // array holding the stack, bottom at 0
-    private int next = 0;                          // next available slot in the array
-    private int front = 0;                         // first element in the array
-    private int elementCount = 0;
+    private int size = 10;                          // size of array
+    private int[] S = new int[size];                // array holding the stack, bottom at 0
+    private int next = 0;                           // next available slot in the array
+    private int front = 0;                          // first element in the array
+    private int elementCount = 0;                   // number of elements in the array
     
+    // Inserts n at rear of queue
+    // If queue is full, resizes the queue
     public void enqueueRear(int n) {
         if (size() == size) resize();
         S[next] = n;
@@ -22,6 +24,8 @@ public class IntDeque implements Dequeable {
         elementCount++;
     }
     
+    // Inserts n at front of queue
+    // If queue is full, resizes the queue
     public void enqueueFront(int n) {
         if (size() == size) resize();
         if ((front - 1) < 0) {
@@ -33,6 +37,8 @@ public class IntDeque implements Dequeable {
         elementCount++;
     }
     
+    // Removes and returns the element at front of queue
+    // Shifts front pointer along the queue and decrements elementCount
     public int dequeueFront() {
         int result = S[front];
         front = (++front % S.length);
@@ -40,6 +46,8 @@ public class IntDeque implements Dequeable {
         return result;
     }
     
+    // Removes and returns the element at rear of queue
+    // Shifts next pointer down the queue and decrements elementCount
     public int dequeueRear() {
         if ((next - 1) < 0) {
             next = size - 1;
@@ -50,10 +58,12 @@ public class IntDeque implements Dequeable {
         return S[next];
     }
     
+    // Returns the element at the front of the queue without removing it
     public int peekFront(){
         return S[front];
     }
     
+    // Returns the element at the rear of the queue without removing it
     public int peekRear(){
         if ((next - 1) < 0) {
             return S[size - 1];
@@ -62,14 +72,17 @@ public class IntDeque implements Dequeable {
         }
     }
     
+    // Returns the number of elements in the queue
     public int size() {
         return elementCount;
     }
     
+    // Returns true iff there are no elements in the queue
     public boolean isEmpty() {
         return (size() == 0);
     }
     
+    // Resizes the array to twice its size and resets the front and next pointers
     public void resize() {
         size *= 2;
         int[] T = new int[size];
