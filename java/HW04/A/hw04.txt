@@ -1,15 +1,58 @@
 Rudhra Raveendran
 09/29/2016
 
-1. 	There will be an error during compilation. This is because when you implement an interface in Java,
-	you must override all abstract (unimplemented) methods. Since the only change is  peek() to top()
-	in the implementing class, and there is no other override for peek(), the error is thrown.
-2.	This change has no effect on the program, since resize() is not an abstract method of the Stackable
-	interface. Therefore its name can be changed and the AnotherStack class will still be completely implementing
-	the Stackable interface.
-3.	Nothing is shown to happen during the Unit Test, however, making the resize() method public instead of private
-	could lead to efficiency issues as code not part of the AnotherStack class could arbitrarily resize an instance
-	of AnotherStack, even when it's not needed.
-4.	
-5.	This change will give a cannot find symbol error during compilation since a class called "Anotherstack" does not exist.
-6.	
+1.
+	1. 	There will be an error during compilation. This is because when you implement an 
+		interface in Java, you must override all abstract (unimplemented) methods. Since 
+		the only change is  peek() to top() in the implementing class, and there is no 
+		other override for peek(), the error is thrown.
+	2.	This change has no effect on the program, since resize() is not an abstract method 
+		of the Stackable interface. Therefore its name can be changed and the AnotherStack 
+		class will still be completely implementing the Stackable interface.
+	3.	Nothing is shown to happen during the Unit Test, however, making the resize() method 
+		public instead of private could lead to efficiency issues as code not part of the 
+		AnotherStack class could arbitrarily resize an instance of AnotherStack, even when 
+		it's not needed.
+	4.	An error occurs during compilation that method size() is not a symbol of Stackable. 
+		This error occurs because variable S is declared as type Stackable, despite being 
+		initialized as AnotherStack. Because its type Stackable does not contain the size() 
+		method, it cannot call size(), even though AnotherStack implements size.
+	5.	The program will run as expected. Since AnotherStack implements all the methods 
+		required by Stackable, all the methods called in the Unit Test will run properly.
+	6.	If both changes are made, the program will run as expected. Although size is now 
+		missing from Stackable, AnotherStack still implements it, and since variable S is 
+		of type AnotherStack, it will have no issues running the size method.
+2.	+   +
+	| 7 |
+	| 9 |
+	| 2 |
+	| 8 |
+	| 1 |
+	| 3 |
+	| 7 |
+   -+---+-
+3. +---------------+
+   | 3 | 9 | 3 | 8 |
+   +---------------+
+4. +-------------------+
+   | 1 | 2 | 4 | 5 | 6 |
+   +-------------------+
+5.
+	a. yes
+	b. yes
+	c. yes
+	d. no
+6.
+	a. yes
+	b. yes
+	c. no
+	d. no
+7. 	You could also produce the sequence 9 8 7 6 5 4 3 2 1 0 by pushing all those numbers in order
+	then popping them all off.
+8. 	This process would have essentially reversed the queue. A queue of 3 2 1 would become 1 2 3.
+9.	The priority queue would remain unchanged because the insert method makes sure to put each
+	element in the space it belongs.
+10.	This process would have ordered the queue from least to greatest. The priority queue would
+	have ordered the elements from greatest to least, and transferring those elements onto
+	a stack and then back into a queue would have reversed their order.
+	
