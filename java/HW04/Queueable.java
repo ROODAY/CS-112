@@ -5,8 +5,6 @@
  * Purpose: This interface declares the methods required of a naive queue implementation
  */
 
-package HW04.B1;
-
 public interface Queueable {
     
     // Enqueues a new key in the front of the queue

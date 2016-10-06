@@ -5,8 +5,6 @@
  * Purpose: This class implements a queue using the circular-buffer technique
  */
 
-package HW04.B3;
-
 public class IntDeque implements Dequeable {
     
     private int size = 10;                          // size of array

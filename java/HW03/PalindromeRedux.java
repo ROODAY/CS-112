@@ -6,8 +6,6 @@
  * It uses a debug method to ensure the palindrome checking logic functions properly.
  */
 
-package HW03.B1;
-
 import java.util.Arrays;
 
 public class PalindromeRedux {

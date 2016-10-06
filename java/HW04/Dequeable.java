@@ -5,8 +5,6 @@
  * Purpose: Part of solution for HW 04, Problem B.3
  */
 
-package HW04.B3;
-
 public interface Dequeable {
     
     // Insert a new element at the rear of the queue

@@ -5,8 +5,6 @@
  * Purpose: Example of Interface for Stack.java in Lab 04
  */
 
-package HW04.A;
-
 public interface Stackable {
     
     // Insert a new element on the top of the stack

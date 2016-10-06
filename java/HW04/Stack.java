@@ -5,8 +5,6 @@
  * Purpose: Example of Stack ADT
  */
 
-package HW04.A;
-
 public class Stack {
     
     private final int INITIAL_LENGTH = 10;

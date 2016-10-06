@@ -1,17 +1,15 @@
 /* 
- * File: WordPalindromeTest.java
+ * File: PalindromeTest.java
  * Author: Rudhra Raveendran (rooday@bu.edu)
- * Date: 09/20/2016
- * Purpose: This class tests if user input is a palindrome by words
+ * Date: 09/15/2016
+ * Purpose: This class tests if user input is a palindrome by characters
  */
 
-package HW02.B1;
 import java.util.Scanner;
-import java.util.Arrays;
 
-public class WordPalindromeTest { 
+public class PalindromeTest { 
     public static void main(String[] args) {
-        System.out.println("\nWelcome to the Word Palindrome Test Program!");
+        System.out.println("\nWelcome to the Palindrome Test Program!");
         
         Scanner userInput = new Scanner(System.in);
         
@@ -26,22 +24,28 @@ public class WordPalindromeTest {
                 line = line.replace(Character.toString(charsToRemove[i]), "");
             }
             
-            String[] words = line.split("\\s+");
+            String cleanedLine = "";
+            
+            for (int i = 0; i < line.length(); i++) {
+                char a = line.charAt(i);
+                if (Character.isWhitespace(a) == false) {
+                    cleanedLine += Character.toString(a);
+                }
+            }
             
             boolean isPalindrome = true;
-            int max = words.length - 1;
+            int max = cleanedLine.length() - 1;
             
-            for (int i = 0; i < words.length; i++) {
-                if (!(words[i].equals(words[max - i]))) {
+            for (int i = 0; i < cleanedLine.length(); i++) {
+                if (!(Character.toString(cleanedLine.charAt(i)).equals(Character.toString(cleanedLine.charAt(max - i))))) {
                     isPalindrome = false;
                 }
             }
             
-            System.out.println(Arrays.toString(words));
             if (isPalindrome) {
-                System.out.println("Word Palindrome!");
+                System.out.println("Palindrome!");
             } else {
-                System.out.println("Not a word palindrome!");
+                System.out.println("Not a palindrome!");
             }
         }
         System.out.println("bye!");

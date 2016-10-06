@@ -5,8 +5,6 @@
  * Purpose: This class represents a naive queue implementation
  */
 
-package HW04.B1;
-
 public class ResizingQueue implements Queueable {
     
     private final int INITIAL_SIZE = 10; 

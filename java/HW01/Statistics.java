@@ -4,8 +4,7 @@
  * Author:  Rudhra Raveendran (rooday@bu.edu)
  * Purpose: This class calculates various statistics of three numbers from user input
  */
-
-package HW01.B3;
+ 
 import java.util.Scanner;
 
 public class Statistics {

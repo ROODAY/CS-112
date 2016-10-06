@@ -5,8 +5,6 @@
  * Purpose: This class tests various methods on char arrays using only one library (Java Standard Math Library)
  */
 
-package HW02.B3;
-
 public class MyStringArray { 
     
     // Declare various final (i.e., constant) values to be used to indicate errors of various types

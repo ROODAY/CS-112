@@ -5,8 +5,6 @@
  * Purpose: Example of Stack which uses a Java Interface
  */
 
-package HW04.A;
-
 public class AnotherStack implements Stackable {
     
     private final int INITIAL_LENGTH = 10;

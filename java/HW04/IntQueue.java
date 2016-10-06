@@ -5,12 +5,6 @@
  * Purpose: This class implements a queue ADT using two stacks
  */
 
-package HW04.B2;
-
-import HW04.A.Stackable;
-import HW04.A.AnotherStack;
-import HW04.B1.Queueable;
-
 public class IntQueue implements Queueable {
     
     Stackable inStack = new AnotherStack();

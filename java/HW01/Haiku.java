@@ -5,8 +5,6 @@
  * Purpose: This class prints out a haiku, using two variables for the author and year and only one println statement
  */
 
-package HW01.B1;
-
 public class Haiku {
     public static void main(String[] args) {
         String author = "Jack Kerouac";

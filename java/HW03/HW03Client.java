@@ -5,11 +5,6 @@
  * Purpose: This class is a client to test the BigInt and Set ADT libraries
  */
 
-package HW03.B4;
-
-import HW03.B2.BigInt;
-import HW03.B3.Set;
-
 public class HW03Client {
     
     public static void main(String[] args) {

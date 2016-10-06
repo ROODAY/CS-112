@@ -6,8 +6,6 @@
  * order does not matter and there are no duplicates
  */
 
-package HW03.B3;
-
 public class Set  {
     
     private int SIZE = 20;  // length of the array

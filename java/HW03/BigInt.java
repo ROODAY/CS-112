@@ -5,8 +5,6 @@
  * Purpose: This class implements a library to store large integers containing up to 20 digits
  */
 
-package HW03.B2;
-
 import java.util.Arrays;                    // so that we can print out arrays using Arrays.toString(...)
 
 public class BigInt  {

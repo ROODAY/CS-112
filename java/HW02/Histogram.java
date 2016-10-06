@@ -6,7 +6,6 @@
  * Credits: Used example 2 from top answer of https://stackoverflow.com/questions/3059333/validating-input-using-java-util-scanner to terminate input loop when user types 'done'
  */
 
-package HW02.B2;
 import java.util.Scanner;
 import java.util.Arrays;
 
