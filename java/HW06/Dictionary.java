@@ -2,7 +2,7 @@
  * File: Dictionary.java
  * Author: Rudhra Raveendran (rooday@bu.edu)
  * Date: 10/18/16
- * Purpose: This class 
+ * Purpose: This class implements a Dictionary ADT
  */
 
 import java.util.Arrays;
@@ -44,7 +44,7 @@ public class Dictionary {
         for (int i = 0; i < A.length; i++) {
             if (A[i] != null) {
                 if (k.compareTo(A[i].key) < 0) {
-                    for (int j = A.length - 1; j > i; j--) {
+                    for (int j = next; j > i; j--) {
                         A[j] = A[j - 1];
                     }
                     A[i] = new Pair(k, val);
@@ -53,7 +53,7 @@ public class Dictionary {
                     A[i].value = val;
                 }
             } else {
-                A[i] = new Pair(k, val);
+                A[next] = new Pair(k, val);
                 break;
             } 
         }
@@ -63,161 +63,95 @@ public class Dictionary {
     // Returns the array of classes associated with k
     // If k is not found, returns null
     public String[] lookupClasses(String k) {
-        int lower = 0;
-        int upper = next - 1;
-        while (lower <= upper) {
-            int mid = (lower + upper) / 2;
-            if (k.compareTo(A[mid].key) == 0) {
-                return A[mid].value;
-            } else if (k.compareTo(A[mid].key) < 0) {
-                upper = mid - 1;
-            } else {
-                lower = mid + 1;
-            }
-        }
-        return null;
+        int index = location(k, 0, next - 1);
+        if (index == -1) return null;
+        return A[index].value;
     }
 
     // Uses binary search to see if k is a key inside the dictionary
     // Returns true if k is found
     public boolean member(String k) {
-        int lower = 0;
-        int upper = next - 1;
-        while (lower <= upper) {
-            int mid = (lower + upper) / 2;
+        if (location(k, 0, next - 1) == -1) return false;
+        return true;
+    }
+
+    // Uses binary search to find and return location of key k
+    // Returns -1 if not found
+    private int location(String k, int lo, int hi) {
+        while (lo <= hi) {
+            int mid = (lo + hi) / 2;
             if (k.compareTo(A[mid].key) == 0) {
-                return true;
+                return mid;
             } else if (k.compareTo(A[mid].key) < 0) {
-                upper = mid - 1;
+                hi = mid - 1;
             } else {
-                lower = mid + 1;
+                lo = mid + 1;
             }
         }
-        return false;
+        return -1;
     }
 
     // If k is in the dictionary, remove it and it's value
     // Then shift all elements greater than k down one
     public void deleteStudent(String k) {
         if (!member(k)) return;
-        int lower = 0;
-        int upper = next - 1;
-        while (lower <= upper) {
-            int mid = (lower + upper) / 2;
-            if (k.compareTo(A[mid].key) == 0) {
-                for (int i = mid; i < next - 1; i++) {
-                    A[i] = A[i + 1];
-                }
-                next--;
-                return;
-            } else if (k.compareTo(A[mid].key) < 0) {
-                upper = mid - 1;
-            } else {
-                lower = mid + 1;
-            }
+        int index = location(k, 0, next - 1);
+        for (int i = index; i < next - 1; i++) {
+            A[i] = A[i + 1];
         }
-
+        next--;
     }
 
     // If key k is in dictionary and it's value contains class c, c will be removed from that value
     public void dropClass(String k, String c) {
-        int lower = 0;
-        int upper = next - 1;
-        while (lower <= upper) {
-            int mid = (lower + upper) / 2;
-            if (k.compareTo(A[mid].key) == 0) {
-                String[] oldClasses = A[mid].value;
+        int index = location(k, 0, next - 1);
+        if (index == -1) return;
 
-                boolean cExists = false;
-                for (int i = 0; i < oldClasses.length; i++) {
-                    if (c.equals(oldClasses[i])) {
-                        cExists = true;
-                        break;
-                    }
-                }
-                if (!cExists) return;
+        String[] oldClasses = A[index].value;
 
-                String[] newClasses = new String[oldClasses.length - 1];
-                for (int i = 0, j = 0; i < oldClasses.length; i++) {
-                    if (!c.equals(oldClasses[i])) {
-                        newClasses[j] = oldClasses[i];
-                        j++;
-                    }
-                }
-                A[mid].value = newClasses;
-                return;
-            } else if (k.compareTo(A[mid].key) < 0) {
-                upper = mid - 1;
-            } else {
-                lower = mid + 1;
+        if (!memberArray(c, oldClasses)) return;
+
+        String[] newClasses = new String[oldClasses.length - 1];
+        for (int i = 0, j = 0; i < oldClasses.length; i++) {
+            if (!c.equals(oldClasses[i])) {
+                newClasses[j] = oldClasses[i];
+                j++;
             }
         }
+        A[index].value = newClasses;
     }
 
     // If key k is in the dictionary and doesn't have class c in its value, add c to its value
     // If key k is not in the dictionary, insert it with c as its only class
     public void addClass(String k, String c) {
-        int lower = 0;
-        int upper = next - 1;
-        while (lower <= upper) {
-            int mid = (lower + upper) / 2;
-            if (k.compareTo(A[mid].key) == 0) {
-                String[] oldClasses = A[mid].value;
+        int index = location(k, 0, next - 1);
+        if (index == -1) {
+            String[] val = {c};
+            insertStudent(k, val);
+            return;
+        }
 
-                boolean cExists = false;
-                for (int i = 0; i < oldClasses.length; i++) {
-                    if (c.equals(oldClasses[i])) {
-                        cExists = true;
-                        break;
-                    }
-                }
-                if (cExists) return;
+        String[] oldClasses = A[index].value;
 
-                String[] newClasses = new String[oldClasses.length + 1];
-                for (int i = 0, j = 0; i < oldClasses.length; i++) {
-                    if (!c.equals(oldClasses[i])) {
-                        newClasses[j] = oldClasses[i];
-                        j++;
-                    }
-                }
-                newClasses[newClasses.length - 1] = c;
-                A[mid].value = newClasses;
-                return;
-            } else if (k.compareTo(A[mid].key) < 0) {
-                upper = mid - 1;
-            } else {
-                lower = mid + 1;
+        if (memberArray(c, oldClasses)) return;
+
+        String[] newClasses = new String[oldClasses.length + 1];
+        for (int i = 0, j = 0; i < oldClasses.length; i++) {
+            if (!c.equals(oldClasses[i])) {
+                newClasses[j] = oldClasses[i];
+                j++;
             }
         }
-        String[] val = {c};
-        insertStudent(k, val);
+        newClasses[newClasses.length - 1] = c;
+        A[index].value = newClasses;
     }
 
     // Returns true if key k is in the dictionary and has class c in its value
     // Returns false otherwise
     public boolean enrolled(String k, String c) {
-        int lower = 0;
-        int upper = next - 1;
-        while (lower <= upper) {
-            int mid = (lower + upper) / 2;
-            if (k.compareTo(A[mid].key) == 0) {
-                String[] oldClasses = A[mid].value;
-
-                boolean cExists = false;
-                for (int i = 0; i < oldClasses.length; i++) {
-                    if (c.equals(oldClasses[i])) {
-                        cExists = true;
-                        break;
-                    }
-                }
-                return cExists;
-            } else if (k.compareTo(A[mid].key) < 0) {
-                upper = mid - 1;
-            } else {
-                lower = mid + 1;
-            }
-        }
-        return false;
+        int index = location(k, 0, next - 1);
+        if (index == -1) return false;
+        return memberArray(c, A[index].value);
     }
     
     // Returns the number of pairs in the dictionary
@@ -238,6 +172,16 @@ public class Dictionary {
             T[i] = A[i];
         }
         A = T;
+    }
+
+    // Returns true if string k is in the array C, and false if not
+    private boolean memberArray(String k, String[] C) {
+        for (int i = 0; i < C.length; i++) {
+            if (C[i].equals(k)) {
+                return true;
+            }
+        }
+        return false;
     }
     
     // Prints the dictionary in a readable fashion
@@ -322,7 +266,7 @@ public class Dictionary {
         System.out.print(D.member("Walker,Scott") + "  " );
         D.addClass("Walker,Scott","PH110"); 
         System.out.println(D.member("Walker,Scott"));
-               
+        
         
         System.out.println("\n[12] Should print out:\ntrue"); 
         System.out.println(D.enrolled("Trump,Donald", "CS591"));  
