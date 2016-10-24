@@ -103,22 +103,32 @@ public class LinkedListPractice {
     public static double stdDev(Node h) {
         if (h == null) return 0.0;
         double mean = mean(h);
+        double variance = 0.0;
+        double sum = 0.0;
+        double squareSum = 0.0;
+        int count = 0;
         Node p = h;
         while (p != null) {
-            total += p.item;
-            count += 1.0;
+            sum += p.item;
+            squareSum += Math.pow(p.item, 2);
+            count++;
             p = p.next;
         }
-               // your code here
-        return 0.0;          // just to get it to compile
+        return Math.sqrt((squareSum / count) - Math.pow((sum / count), 2));
     }
     
     // Add list q to the end of list p. You do not have to make a copy of either list, just
     // find the last node of p and point that node to q, so that both lists are combined.
     
-    public static Node append(Node p, Node q) { 
-        // your code here
-        return null;          // just to get it to compile          
+    public static Node append(Node p, Node q) {
+        if (p == null) return q;
+        if (q == null) return p;
+        Node t = p;
+        while (t.next != null) {
+            t = t.next;
+        } 
+        t.next = q;
+        return p;       
     }
     
     // Return the reverse list consisting of the 1st, 3rd, 5th, etc. members; 
@@ -230,7 +240,7 @@ public class LinkedListPractice {
         answer = "" + mean(head);
         System.out.println("\nTest 06: Should print out:\n" + solution);
         System.out.println(answer);
-        /*
+        
         solution = "0.0"; 
         answer = "" + stdDev(null);
         System.out.println("\nTest 07: Should print out:\n" + solution);
@@ -257,7 +267,7 @@ public class LinkedListPractice {
         answer = "" + listToString(append(copy(head),copy(head2)));
         System.out.println("\nTest 11: Should print out:\n" + solution);
         System.out.println(answer); 
-        
+     /*   
         solution = "."; 
         answer = "" + listToString(reverseEveryOther(null));
         System.out.println("\nTest 12: Should print out:\n" + solution);
