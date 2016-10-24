@@ -59,7 +59,7 @@ public class Dictionary {
         }
         next++;
     }
-
+    
     // Returns the array of classes associated with k
     // If k is not found, returns null
     public String[] lookupClasses(String k) {
@@ -67,14 +67,14 @@ public class Dictionary {
         if (index == -1) return null;
         return A[index].value;
     }
-
+    
     // Uses binary search to see if k is a key inside the dictionary
     // Returns true if k is found
     public boolean member(String k) {
         if (location(k, 0, next - 1) == -1) return false;
         return true;
     }
-
+    
     // Uses binary search to find and return location of key k
     // Returns -1 if not found
     private int location(String k, int lo, int hi) {
@@ -90,7 +90,7 @@ public class Dictionary {
         }
         return -1;
     }
-
+    
     // If k is in the dictionary, remove it and it's value
     // Then shift all elements greater than k down one
     public void deleteStudent(String k) {
@@ -101,16 +101,16 @@ public class Dictionary {
         }
         next--;
     }
-
+    
     // If key k is in dictionary and it's value contains class c, c will be removed from that value
     public void dropClass(String k, String c) {
         int index = location(k, 0, next - 1);
         if (index == -1) return;
-
+        
         String[] oldClasses = A[index].value;
-
+        
         if (!memberArray(c, oldClasses)) return;
-
+        
         String[] newClasses = new String[oldClasses.length - 1];
         for (int i = 0, j = 0; i < oldClasses.length; i++) {
             if (!c.equals(oldClasses[i])) {
@@ -120,7 +120,7 @@ public class Dictionary {
         }
         A[index].value = newClasses;
     }
-
+    
     // If key k is in the dictionary and doesn't have class c in its value, add c to its value
     // If key k is not in the dictionary, insert it with c as its only class
     public void addClass(String k, String c) {
@@ -130,11 +130,11 @@ public class Dictionary {
             insertStudent(k, val);
             return;
         }
-
+        
         String[] oldClasses = A[index].value;
-
+        
         if (memberArray(c, oldClasses)) return;
-
+        
         String[] newClasses = new String[oldClasses.length + 1];
         for (int i = 0, j = 0; i < oldClasses.length; i++) {
             if (!c.equals(oldClasses[i])) {
@@ -145,7 +145,7 @@ public class Dictionary {
         newClasses[newClasses.length - 1] = c;
         A[index].value = newClasses;
     }
-
+    
     // Returns true if key k is in the dictionary and has class c in its value
     // Returns false otherwise
     public boolean enrolled(String k, String c) {
@@ -163,7 +163,7 @@ public class Dictionary {
     public boolean isEmpty() {
         return (next == 0);
     }
-
+    
     // Resizes the dictionary to twice its size
     private void resize() {
         LENGTH *= 2;
@@ -173,7 +173,7 @@ public class Dictionary {
         }
         A = T;
     }
-
+    
     // Returns true if string k is in the array C, and false if not
     private boolean memberArray(String k, String[] C) {
         for (int i = 0; i < C.length; i++) {
@@ -206,7 +206,7 @@ public class Dictionary {
         
         // Use step-wise refinement: Uncover one test at a time and implement only what you need
         // to pass that test.
-
+        
         D.insertStudent("Christie,Chris",A); 
         D.insertStudent("Carson,Ben", B);
         D.insertStudent("Trump,Donald", C);
@@ -253,13 +253,13 @@ public class Dictionary {
         D.dropClass("Carson,Ben", "MA123");
         D.dropClass("Carson,Ben", "EC102"); 
         System.out.println(Arrays.toString(D.lookupClasses("Carson,Ben"))); 
- 
+        
         
         System.out.println("\n[10] Should print out:\n[CS111, MA294, WR150, CL212, CS591]");  
         D.addClass("Trump,Donald", "CS591");
         D.addClass("Trump,Donald", "WR150"); 
         System.out.println(Arrays.toString(D.lookupClasses("Trump,Donald"))); 
-
+        
         
         System.out.println("\n[11] Should print out:\nfalse  true"); 
         D.dropClass("Walker,Scott","PH150");
@@ -285,13 +285,7 @@ public class Dictionary {
         D.insertStudent("Nixon,Dick",A); 
         D.insertStudent("Carter,Jimmy", B);
         D.insertStudent("Johnson,Lyndon", C);
-          
-        D.printDictionary(); 
-    
-    }
-    
+        
+        D.printDictionary();    
+    }   
 }
-
-
-
-

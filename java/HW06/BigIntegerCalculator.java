@@ -54,7 +54,7 @@ public class BigIntegerCalculator {
             inputTokens[next++] = s.substring(beginning, i);
             beginning = i;
         }
-            
+        
         // right-size the array
         String[] result = new String[next];
         for (int j = 0; j < next; ++j) {
@@ -63,7 +63,7 @@ public class BigIntegerCalculator {
         
         return result;
     }
-      
+    
     public static void main(String[] args) {
         Stack<String> Ops = new Stack<String>();
         Stack<BigInteger> Nums = new Stack<BigInteger>();
