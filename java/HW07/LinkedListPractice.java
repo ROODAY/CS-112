@@ -52,16 +52,28 @@ public class LinkedListPractice {
     // create a linked list from an array, in the same order
     
     public static Node arrayToLinkedList(int[] A) {
-        // your code here
-        return null;          // just to get it to compile
+        Node head = new Node(A[0], null);
+        Node p = head;
+        for (int i = 1; i < A.length; i++) {
+            Node n = new Node(A[i], null);
+            p.next = n;
+            p = n;
+        }
+        return head;
     }
     
     // find the maximum of the integers in the list 
     // if the list is empty return Integer.MIN_VALUE (the largest magnitude negative int)
     
     public static int maximum(Node h) {
-        // your code here
-        return 0;          // just to get it to compile 
+        if (h == null) return Integer.MIN_VALUE;
+        int max = 0;
+        Node p = h;
+        while (p != null) {
+            if (p.item > max) max = p.item;
+            p = p.next;
+        }
+        return max;
     }
     
     // find the mean (average) of the integers in the list with one pass through the list
@@ -69,8 +81,16 @@ public class LinkedListPractice {
     // if the list is empty return 0.0
     
     public static double mean(Node h) {
-        // your code here
-        return 0.0;          // just to get it to compile
+        if (h == null) return 0.0;
+        double total = 0.0;
+        double count = 0.0;
+        Node p = h;
+        while (p != null) {
+            total += p.item;
+            count += 1.0;
+            p = p.next;
+        }
+        return total / count;
     }
     
     // find the population standard deviation of the integers in the list with one pass through the list
@@ -81,6 +101,14 @@ public class LinkedListPractice {
     // sum of the squares, and do the calculation at the end using Math.sqrt(....)
     
     public static double stdDev(Node h) {
+        if (h == null) return 0.0;
+        double mean = mean(h);
+        Node p = h;
+        while (p != null) {
+            total += p.item;
+            count += 1.0;
+            p = p.next;
+        }
                // your code here
         return 0.0;          // just to get it to compile
     }
@@ -176,13 +204,13 @@ public class LinkedListPractice {
         System.out.println("\nTest 01:  Should print out:\n" + solution);
         System.out.println(answer); 
         
- /*    Use step-wise refinement: uncomment one test at a time and work on one method at a time
+ //    Use step-wise refinement: uncomment one test at a time and work on one method at a time
   
         solution = "."; 
         answer = listToString(null);
         System.out.println("\nTest 02: Should print out:\n" + solution);
         System.out.println(answer); 
-        
+       
         solution = "-2147483648"; 
         answer = "" + maximum(null);
         System.out.println("\nTest 03: Should print out:\n" + solution);
@@ -202,7 +230,7 @@ public class LinkedListPractice {
         answer = "" + mean(head);
         System.out.println("\nTest 06: Should print out:\n" + solution);
         System.out.println(answer);
-        
+        /*
         solution = "0.0"; 
         answer = "" + stdDev(null);
         System.out.println("\nTest 07: Should print out:\n" + solution);
