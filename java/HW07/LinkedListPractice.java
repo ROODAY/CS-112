@@ -102,8 +102,6 @@ public class LinkedListPractice {
     
     public static double stdDev(Node h) {
         if (h == null) return 0.0;
-        double mean = mean(h);
-        double variance = 0.0;
         double sum = 0.0;
         double squareSum = 0.0;
         int count = 0;
@@ -246,7 +244,7 @@ public class LinkedListPractice {
         System.out.println("\nTest 07: Should print out:\n" + solution);
         System.out.println(answer);  
         
-        solution = "7.7781745930520225"; 
+        solution = "3.3541019662496847"; 
         answer = "" + stdDev(head);
         System.out.println("\nTest 08: Should print out:\n" + solution);
         System.out.println(answer);
