@@ -156,11 +156,11 @@ public class LinkedListPractice {
         else {
             int count = 2;
             for(Node p = h.next, q = h; p != null ; q = p, p = p.next ) {
-               if( count == n ) {
-                   q.next = p.next;
-                   return h;           
-               }
-               count++;
+                if( count == n ) {
+                    q.next = p.next;
+                    return h;           
+                }
+                count++;
             }
             return h;
         }
@@ -213,8 +213,25 @@ public class LinkedListPractice {
 // into the list h in ascending order. You should not create any new nodes in this method. 
     
     private static Node insertInOrder(Node n, Node h) {
-        // your code here
-        return null;          // just to get it to compile
+        if (h == null || h.item >= n.item) {
+            n.next = h;
+            h = n;
+        } else {
+            Node p = h.next;
+            Node q = h;
+            while (p != null) {
+                if(p.item >= n.item) {
+                    n.next = p;
+                    q.next = n;
+                    return h;
+                }
+                q = p;
+                p = p.next;
+            }
+            q.next = n;
+            n.next = null;
+        }
+        return h;
     }
     
     
@@ -223,13 +240,17 @@ public class LinkedListPractice {
 // but must rearrange the existing nodes into ascending order. 
     
     private static Node insertionSort(Node p) {
-        // your code here
-        return null;          // just to get it to compile
+        Node sortedList = p;
+        Node sortme;
+        Node unsortedlist = p.next;
+        sortedList.next = null;
+        while (unsortedlist != null) {
+            sortme = unsortedlist;
+            unsortedlist = unsortedlist.next;
+            sortedList = insertInOrder(sortme, sortedList);
+        }
+        return sortedList;
     }
-    
-    
-    
-    
     
     public static void main(String [] args) {
         
@@ -245,13 +266,13 @@ public class LinkedListPractice {
         System.out.println("\nTest 01:  Should print out:\n" + solution);
         System.out.println(answer); 
         
- //    Use step-wise refinement: uncomment one test at a time and work on one method at a time
-  
+        //    Use step-wise refinement: uncomment one test at a time and work on one method at a time
+        
         solution = "."; 
         answer = listToString(null);
         System.out.println("\nTest 02: Should print out:\n" + solution);
         System.out.println(answer); 
-       
+        
         solution = "-2147483648"; 
         answer = "" + maximum(null);
         System.out.println("\nTest 03: Should print out:\n" + solution);
@@ -298,7 +319,7 @@ public class LinkedListPractice {
         answer = "" + listToString(append(copy(head),copy(head2)));
         System.out.println("\nTest 11: Should print out:\n" + solution);
         System.out.println(answer); 
-       
+        
         solution = "."; 
         answer = "" + listToString(reverseEveryOther(null));
         System.out.println("\nTest 12: Should print out:\n" + solution);
@@ -348,7 +369,7 @@ public class LinkedListPractice {
         answer = "" + equalLists(null,null);
         System.out.println("\nTest 19: Should print out:\n" + solution);
         System.out.println(answer);      
-                
+        
         solution = "false"; 
         answer = "" + equalLists(null,headD);
         System.out.println("\nTest 20: Should print out:\n" + solution);
@@ -423,50 +444,45 @@ public class LinkedListPractice {
         answer = "" + listToString(zip(copy(head), arrayToLinkedList(new int[] {14,5,-3,15,25} ) ));
         System.out.println("\nTest 34: Should print out:\n" + solution);
         System.out.println(answer);
-        /*  
-         solution = "2 -> 3 -> 6 -> 9 -> 12 -> ."; 
-         answer = "" + listToString(insertInOrder(new Node(2), copy(head)));
-         System.out.println("\nTest 35: Should print out:\n" + solution);
-         System.out.println(answer);
-         
-         solution = "3 -> 6 -> 8 -> 9 -> 12 -> ."; 
-         answer = "" + listToString(insertInOrder(new Node(8), copy(head)));
-         System.out.println("\nTest 36: Should print out:\n" + solution);
-         System.out.println(answer);
-         
-         solution = "3 -> 6 -> 9 -> 12 -> 15 -> ."; 
-         answer = "" + listToString(insertInOrder(new Node(15), copy(head)));
-         System.out.println("\nTest 37: Should print out:\n" + solution);
-         System.out.println(answer);
-         
-         solution = "15 -> ."; 
-         answer = "" + listToString(insertInOrder(new Node(15), null));
-         System.out.println("\nTest 38: Should print out:\n" + solution);
-         System.out.println(answer);
-         
-         solution = "3 -> 6 -> 9 -> 12 -> 15 -> ."; 
-         answer = "" + listToString(insertionSort(arrayToLinkedList(new int[] {15, 6, 3, 9, 12} )));
-         System.out.println("\nTest 39: Should print out:\n" + solution);
-         System.out.println(answer);    
-         
-         // just for fun....
-         
-         Node list1 = arrayToLinkedList( new int[] { 5, 23, 73, 104, 7, 9 } );
-         Node list2 = arrayToLinkedList( new int[] { 15, 70, 3, 99, 73, 91 } );
-         Node list3 = arrayToLinkedList( new int[] { 1, -2, 45, 64, 8, 12, 66, 999, 23 } );
-         Node list = append(list1,list2);
-         list = deleteNth(deleteNth(list,3),8);
-         list = reverseEveryOther(list);
-         list = zip(list,list3);
-         list = insertionSort(list);
-         solution = "-2 -> 1 -> 5 -> 8 -> 9 -> 12 -> 23 -> 45 -> 64 -> 66 -> 70 -> 73 -> 104 -> 999 -> ."; 
-         answer = "" + listToString(list);
-         System.out.println("\nTest 40: Should print out:\n" + solution);
-         System.out.println(answer);
- */ 
-    }
-    
-    
+        
+        solution = "2 -> 3 -> 6 -> 9 -> 12 -> ."; 
+        answer = "" + listToString(insertInOrder(new Node(2), copy(head)));
+        System.out.println("\nTest 35: Should print out:\n" + solution);
+        System.out.println(answer);
+        
+        solution = "3 -> 6 -> 8 -> 9 -> 12 -> ."; 
+        answer = "" + listToString(insertInOrder(new Node(8), copy(head)));
+        System.out.println("\nTest 36: Should print out:\n" + solution);
+        System.out.println(answer);
+        
+        solution = "3 -> 6 -> 9 -> 12 -> 15 -> ."; 
+        answer = "" + listToString(insertInOrder(new Node(15), copy(head)));
+        System.out.println("\nTest 37: Should print out:\n" + solution);
+        System.out.println(answer);
+        
+        solution = "15 -> ."; 
+        answer = "" + listToString(insertInOrder(new Node(15), null));
+        System.out.println("\nTest 38: Should print out:\n" + solution);
+        System.out.println(answer);
+        
+        solution = "3 -> 6 -> 9 -> 12 -> 15 -> ."; 
+        answer = "" + listToString(insertionSort(arrayToLinkedList(new int[] {15, 6, 3, 9, 12} )));
+        System.out.println("\nTest 39: Should print out:\n" + solution);
+        System.out.println(answer);    
+        
+        // just for fun....
+        
+        Node list1 = arrayToLinkedList( new int[] { 5, 23, 73, 104, 7, 9 } );
+        Node list2 = arrayToLinkedList( new int[] { 15, 70, 3, 99, 73, 91 } );
+        Node list3 = arrayToLinkedList( new int[] { 1, -2, 45, 64, 8, 12, 66, 999, 23 } );
+        Node list = append(list1,list2);
+        list = deleteNth(deleteNth(list,3),8);
+        list = reverseEveryOther(list);
+        list = zip(list,list3);
+        list = insertionSort(list);
+        solution = "-2 -> 1 -> 5 -> 8 -> 9 -> 12 -> 23 -> 45 -> 64 -> 66 -> 70 -> 73 -> 104 -> 999 -> ."; 
+        answer = "" + listToString(list);
+        System.out.println("\nTest 40: Should print out:\n" + solution);
+        System.out.println(answer);   
+    }   
 }
-
-
