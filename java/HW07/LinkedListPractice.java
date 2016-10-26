@@ -135,9 +135,15 @@ public class LinkedListPractice {
     // lists of any length. Hint: modify reverse from the Notes using
     // a counter to see where the odd-numbered nodes are
     
-    public static Node reverseEveryOther(Node h) { 
-        // your code here
-        return null;          // just to get it to compile
+    public static Node reverseEveryOther(Node h) {
+        if (h == null) return null;
+        Node q = null;
+        int count = 1;
+        for(Node p = h; p != null; p = p.next) {
+            if (count % 2 != 0) q = new Node(p.item, q);
+            count++;
+        }
+        return q; 
     }
     
     // Return the list h with the nth node deleted, where 1 = first node in list, 2 = second, etc.
@@ -145,32 +151,59 @@ public class LinkedListPractice {
     // Hint: add a counter to the delete method from the Notes
     
     public static Node deleteNth(Node h, int n ) {
-        // your code here
-        return null;          // just to get it to compile
+        if (h == null) return null;
+        else if (n == 1) return h.next;
+        else {
+            int count = 2;
+            for(Node p = h.next, q = h; p != null ; q = p, p = p.next ) {
+               if( count == n ) {
+                   q.next = p.next;
+                   return h;           
+               }
+               count++;
+            }
+            return h;
+        }
     } 
     
     // return true if the two lists contain the same numbers in the same order
     // Hint: Chain-along with two pointers instead of one
     
     public static boolean equalLists(Node p,Node q) {
-        // your code here
-        return false;          // just to get it to compile
+        if ((p == null && q != null) || (p != null && q == null)) return false;
+        for(Node s = p, t = q; s != null; s = s.next, t = t.next ) {
+            if ((s == null && t != null) || (s != null && t == null) || (s.item != t.item)) return false;
+        }
+        return true;
     }
     
     // return true if p is a prefix of q, i.e., p has all the same
     // numbers as q in the same positions, but perhaps q has additional elements at the end
     
     public static boolean prefix(Node p, Node q) {
-        // your code here
-        return false;          // just to get it to compile
+        if (p == null) return true;
+        for(Node s = p, t = q; s != null; s = s.next, t = t.next ) {
+            if ((s == null && t != null) || (s != null && t == null) || (s.item != t.item)) return false;
+        }
+        return true;
     }
     
     // return the zip of two ordered lists (1st of p, then 1st of q, then 2nd of p, then 2nd of q, etc.
     // should work for lists of any size
     
     public static Node zip(Node p, Node q) {
-        // your code here
-        return null;          // just to get it to compile
+        if (p == null) return q;
+        if (q == null) return p;
+        for(Node a = p, b = p.next, c = q, d = q.next; a != null && c != null; a = b, c = d, b = b.next, d = d.next) {
+            a.next = c;
+            if ((b == null && d == null) || b == null) break;
+            else if (d == null) {
+                c.next = b;
+                break;
+            }
+            c.next = b;
+        }
+        return p;
     }
     
     
@@ -265,7 +298,7 @@ public class LinkedListPractice {
         answer = "" + listToString(append(copy(head),copy(head2)));
         System.out.println("\nTest 11: Should print out:\n" + solution);
         System.out.println(answer); 
-     /*   
+       
         solution = "."; 
         answer = "" + listToString(reverseEveryOther(null));
         System.out.println("\nTest 12: Should print out:\n" + solution);
@@ -390,7 +423,7 @@ public class LinkedListPractice {
         answer = "" + listToString(zip(copy(head), arrayToLinkedList(new int[] {14,5,-3,15,25} ) ));
         System.out.println("\nTest 34: Should print out:\n" + solution);
         System.out.println(answer);
-           
+        /*  
          solution = "2 -> 3 -> 6 -> 9 -> 12 -> ."; 
          answer = "" + listToString(insertInOrder(new Node(2), copy(head)));
          System.out.println("\nTest 35: Should print out:\n" + solution);
