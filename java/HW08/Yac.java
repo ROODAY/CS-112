@@ -1,7 +1,8 @@
-/* File: Yac.java
- * Author: Wayne Snyder (waysnyder@gmail.com)
- * Date: 10/28/16
- * Purpose: Template for HW 08, CS 112, Fall 2016
+/* 
+ * File: Yac.java
+ * Author: Rudhra Raveendran (rooday@bu.edu)
+ * Date: 11/01/16
+ * Purpose: This class implements a primitive calculator using generic Stacks and hierarchical linked lists
  */
 
 import java.util.Arrays;
@@ -143,23 +144,54 @@ public class Yac {
         
         String[] tokens = parse(inputExpression);
         
-        // your code here
-        
-        // put this in your loop if you want to see stack at every step, as in HW 08 appendix
+        for (int i = 0; i < tokens.length; i++) {
+            String t = tokens[i];
+            if (t.equals("(")) {
+                continue;
+            } else if (t.equals("/") || t.equals("*") || t.equals("-") || t.equals("+")) {
+                Node operator = new Node(t);
+                Ops.push(operator);
+            } else if (t.equals(")")) {
+                Node two = Exprs.pop();
+                if (two.isOp()) two = new Node("", 0.0, two, null);
+                Node one = Exprs.pop();
+                if (one.isOp()) one = new Node("", 0.0, one, null);
+                Node operator = Ops.pop();
+                operator.next = one;
+                one.next = two;
+                Exprs.push(new Node("", 0.0, operator, null));
+            } else {
+                Node expression = new Node(Double.parseDouble(t));
+                Exprs.push(expression);
+            }
+            
             if (traceOn) {
                 System.out.println("\nOps: " + Ops); 
                 System.out.println("Exprs: " + Exprs);
             }
-    
-        return null;    // just to get it to compile
-        
+        }
+        return Exprs.pop();
     }
     
     // recursive evaluator, returns double value calculated by a hierarchical linked list
     
     public static double eval(Node e) {
-        // your code here
-        return 0.0;    // just to get it to compile
+        if (e.isNum()) {
+            return e.num;
+        } else if (e.isExpr()) {
+            return eval(e.exp);
+        } else if (e.isOp()) {
+            if (e.op.equals("/")) {
+                return eval(e.next) / eval(e.next.next);
+            } else if (e.op.equals("*")) {
+                return eval(e.next) * eval(e.next.next);
+            } else if (e.op.equals("-")) {
+                return eval(e.next) - eval(e.next.next);
+            } else if (e.op.equals("+")) {
+                return eval(e.next) + eval(e.next.next);
+            }
+        }
+        return 0.0; // this should never be reached but Java will yell at me if there isn't a return outside an if
     }
     
     // Unit Test Main
@@ -171,8 +203,8 @@ public class Yac {
         String solution;
         String answer; 
         
-  /*  Step-wise refinement:  Uncomment one test at a time as you develop your methods
-   
+        //  Step-wise refinement:  Uncomment one test at a time as you develop your methods
+        
         Node e = buildExpression("3.141592");
         solution = "3.141592";
         answer = "" + e; 
@@ -208,7 +240,7 @@ public class Yac {
         answer = "" + e; 
         System.out.println("\nTest 06:  Should print out:\n" + solution);
         System.out.println(answer);
-         
+        
         e = buildExpression("(3.141592 - 2.718182)");
         solution = "-(3.141592,2.718182)";
         answer = "" + e; 
@@ -220,43 +252,43 @@ public class Yac {
         answer = "" + e; 
         System.out.println("\nTest 08:  Should print out:\n" + solution);
         System.out.println(answer);     
-                
+        
         e = buildExpression("( (2.0 * 2.0) + 1.0)");
         solution = "+(*(2.0,2.0),1.0)";
         answer = "" + e; 
         System.out.println("\nTest 09:  Should print out:\n" + solution);
         System.out.println(answer);   
-                
+        
         e = buildExpression("( 10.0 * (4.0 / 2.0))");
         solution = "*(10.0,/(4.0,2.0))";
         answer = "" + e; 
         System.out.println("\nTest 10:  Should print out:\n" + solution);
         System.out.println(answer);    
-                
+        
         e = buildExpression("( (10.0 - 4.0) * 2.0)");
         solution = "*(-(10.0,4.0),2.0)";
         answer = "" + e; 
         System.out.println("\nTest 11:  Should print out:\n" + solution);
         System.out.println(answer);    
-                
+        
         e = buildExpression("( (4 * 2.3) + 7)");
         solution = "+(*(4.0,2.3),7.0)";
         answer = "" + e; 
         System.out.println("\nTest 12:  Should print out:\n" + solution);
         System.out.println(answer);
-                 
+        
         e = buildExpression("( (2.0 - 1.0) * ( 3.0 + 2.0 ))");
         solution = "*(-(2.0,1.0),+(3.0,2.0))";
         answer = "" + e; 
         System.out.println("\nTest 13:  Should print out:\n" + solution);
         System.out.println(answer);
-                        
+        
         e = buildExpression("( (5.0 * 2.0) - ( 3.0 / 2.0 ))");
         solution = "-(*(5.0,2.0),/(3.0,2.0))";
         answer = "" + e; 
         System.out.println("\nTest 14:  Should print out:\n" + solution);
         System.out.println(answer);
-                        
+        
         e = buildExpression("( (10.0 - 1.0) / ( 3.0 + 0.0 ))");
         solution = "/(-(10.0,1.0),+(3.0,0.0))";
         answer = "" + e; 
@@ -294,7 +326,7 @@ public class Yac {
         answer = "" + evaluate("(3.0 * 4.0)"); 
         System.out.println("\nTest 21:  Should print out:\n" + solution);
         System.out.println(answer);
-         
+        
         solution = "5.0";
         answer = "" + evaluate("(10.0 / 2.0)"); 
         System.out.println("\nTest 22:  Should print out:\n" + solution);
@@ -304,7 +336,7 @@ public class Yac {
         answer = "" + evaluate("(0.0 / 2.0)"); 
         System.out.println("\nTest 23:  Should print out:\n" + solution);
         System.out.println(answer);     
-                
+        
         solution = "5.0";
         answer = "" + evaluate("( (2.0 * 2.0) + 1.0)"); 
         System.out.println("\nTest 24:  Should print out:\n" + solution);
@@ -313,32 +345,32 @@ public class Yac {
         answer = "" + evaluate("( 10.0 * (4.0 / 2.0))"); 
         System.out.println("\nTest 25:  Should print out:\n" + solution);
         System.out.println(answer);    
-                
+        
         solution = "12.0";
         answer = "" + evaluate("( (10.0 - 4.0) * 2.0)"); 
         System.out.println("\nTest 26:  Should print out:\n" + solution);
         System.out.println(answer);    
-                
+        
         solution = "15.0";
         answer = "" + evaluate("( (4 * 2.0) + 7)"); 
         System.out.println("\nTest 27:  Should print out:\n" + solution);
         System.out.println(answer);
-                 
+        
         solution = "5.0";
         answer = "" + evaluate("((2.0 - 1.0) * ( 3.0 + 2.0 ))"); 
         System.out.println("\nTest 28:  Should print out:\n" + solution);
         System.out.println(answer);
-                        
+        
         solution = "6.0";
         answer = "" + evaluate("((5.0 * 2.0) - ( 8.0 / 2.0 ))"); 
         System.out.println("\nTest 29:  Should print out:\n" + solution);
         System.out.println(answer);
-                        
+        
         solution = "3.0";
         answer = "" + evaluate("((10.0 - 1.0) / ( 3.0 + 0.0 ))"); 
         System.out.println("\nTest 30:  Should print out:\n" + solution);
         System.out.println(answer); 
-         
+        
         // Just for fun (no credit or penalty)
         e = buildExpression("((((4.5234 * 23.241) - 23.242) - ((2.3 / 1.232) + 1.0)) / ( (3.0 + 0.0) * (23.432 / 8.23 )))");
         solution = "9.251310532747977";
@@ -347,14 +379,6 @@ public class Yac {
         solution = "9.251310532747977";
         answer = "" + eval(e);
         System.out.println("\nJFF:  Should print out:\n" + solution);
-        System.out.println(answer); 
-        
-        */
-
+        System.out.println(answer);
     }
 }
-
-
-
-
-

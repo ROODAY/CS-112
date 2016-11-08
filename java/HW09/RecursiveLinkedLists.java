@@ -36,31 +36,54 @@ public class RecursiveLinkedLists {
     // Problem B.2.A
     
     public static Node arrayToLinkedList(int[] A) {
-        // your code here
-        return null;   // just to get it to compile
+        Node head = new Node(A[0], null);
+        arrayToLinkedListHelper(A, head, 1);
+        return head;
     }
     
+    private static void arrayToLinkedListHelper(int[] A, Node current, int index) {
+        if (index < A.length) {
+            current.next = new Node(A[index], null);
+            arrayToLinkedListHelper(A, current.next, ++index);
+        }
+    }
     
     // Problem B.2.B
     
     public static int count(int n, Node p) {
-        // your code here
-        return 0;   // just to get it to compile
+        return countHelper(n, p, 0);
+    }
+
+    private static int countHelper(int n, Node p, int count) {
+        if (p.item == n) count++;
+        if (p.next == null) return count;
+        return countHelper(n, p.next, count);
     }
     
     // Problem B.2.C
     
     public static double mean(Node p) {
-        // your code here
-        return 0.0;   // just to get it to compile
+        if (p == null) return 0.0;
+        return meanHelper(p, 0, 0);
+    }
+
+    private static double meanHelper(Node p, double sum, int count) {
+        if (p == null) return sum / count;
+        else return meanHelper(p.next, (sum + p.item), ++count);
     }
     
     // Problem B.2.D
     
     public static Node deleteNth(Node p, int n ) {
-        // your code here
-        return null;   // just to get it to compile
-    } 
+        if (n == 1) return p.next;
+        deleteNthHelper(p, n, 1);
+        return p;
+    }
+
+    private static void deleteNthHelper(Node p, int delIndex, int curIndex) {
+        if (curIndex == (delIndex - 1)) p.next = p.next.next;
+        else if (p.next != null) deleteNthHelper(p.next, delIndex, ++curIndex);
+    }
     
     
     // Problem B.2.E
@@ -123,8 +146,37 @@ public class RecursiveLinkedLists {
          System.out.println("\nTest 00b:  should print out:\nnull");
          System.out.println(head); 
          
-        // your tests here 
-        
+        int[] B = { 2, 5, 4 };
+        Node p = arrayToLinkedList(B);
+        System.out.println("\nTest 1:  should print out:\n -> 2 -> 5 -> 4 -> .");
+        System.out.println(p);
+
+        p = new Node(2, new Node(5, new Node(4, new Node(6, new Node(2, new Node(9, null))))));
+        System.out.println("\nTest 2:  should print out:\n2");
+        System.out.println(count(2,p));
+
+        System.out.println("\nTest 3:  should print out:\n0");
+        System.out.println(count(7,p));
+
+        p = new Node(2, new Node(5, new Node(4, new Node(3, new Node(2, new Node(5, null))))));
+        System.out.println("\nTest 4:  should print out:\n3.5");
+        System.out.println(mean(p));
+
+        p = null;
+        System.out.println("\nTest 5:  should print out:\n0.0");
+        System.out.println(mean(p));
+
+        p = new Node(2, new Node(5, new Node(4, new Node(6, new Node(2, new Node(9, null))))));
+        System.out.println("\nTest 6:  should print out:\n -> 2 -> 5 -> 6 -> 2 -> 9 -> .");
+        System.out.println(deleteNth(p,3));
+
+        p = new Node(2, new Node(5, new Node(4, new Node(6, new Node(2, new Node(9, null))))));
+        System.out.println("\nTest 7:  should print out:\n -> 5 -> 4 -> 6 -> 2 -> 9 -> .");
+        System.out.println(deleteNth(p,1));
+
+        p = new Node(2, new Node(5, new Node(4, new Node(6, new Node(2, new Node(9, null))))));
+        System.out.println("\nTest 8:  should print out:\n -> 2 -> 5 -> 4 -> 6 -> 2 -> 9 -> .");
+        System.out.println(deleteNth(p,13));
     }
     
 }
