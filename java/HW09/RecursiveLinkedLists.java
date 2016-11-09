@@ -170,11 +170,23 @@ public class RecursiveLinkedLists {
     // Problem B.2.J   
     
     public static Node intersection(Node p,Node q) {
-        // your code here
-        return null;   // just to get it to compile
+        Node c = null;
+        intersectionHelper(p,q,c);
+        return c;
     }
     
-    
+    private static void intersectionHelper(Node p, Node q, Node c) {
+        if (p != null && q != null) {
+            System.out.println("Somewhere");
+            if (p.item == q.item) {
+                System.out.println("Ayy");
+                c = new Node(p.item, null);
+                intersectionHelper(p.next, q.next, c.next);
+            } else {
+                intersectionHelper(p, q.next, c);
+            }
+        }
+    }
     
     public static void main(String [] args) {
         
@@ -323,5 +335,25 @@ public class RecursiveLinkedLists {
         other = new Node(5, new Node(6, new Node(7, null)));
         System.out.println("\nTest 33: Should print out:\n -> 1 -> 2 -> 3 -> 5 -> 6 -> 7 -> .");
         System.out.println(splice(10,head,other));
+
+        Node a = new Node(2, new Node(3, new Node(4, new Node(5, new Node(6, null)))));
+        Node b = new Node(1, new Node(2, new Node(4, new Node(5, null))));
+        System.out.println("\nTest 34: Should print out:\n -> 2 -> 4 -> 5 -> .");
+        System.out.println(intersection(a,b));
+
+        a = new Node(2, new Node(3, null));
+        b = new Node(1, new Node(4, new Node(5, null)));
+        System.out.println("\nTest 35: Should print out:\nnull");
+        System.out.println(intersection(a,b));
+
+        a = new Node(2, new Node(3, new Node(4, new Node(5, new Node(6, null)))));
+        b = null;
+        System.out.println("\nTest 36: Should print out:\nnull");
+        System.out.println(intersection(a,b));
+
+        b = new Node(2, new Node(3, new Node(4, new Node(5, new Node(6, null)))));
+        a = new Node(1, new Node(2, new Node(4, new Node(5, null))));
+        System.out.println("\nTest 34: Should print out:\n -> 2 -> 4 -> 5 -> .");
+        System.out.println(intersection(a,b));
     }   
 }
