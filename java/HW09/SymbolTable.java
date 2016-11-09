@@ -47,15 +47,35 @@ public class SymbolTable<Value> implements Iterable<String>{
 //     The type Value is a generic type. 
     
     public void put(String k, Value value) {
-        // your code here
+        putHelper(k, value, head);
+    }
+
+    private void putHelper(String k, Value value, Node p) {
+        if (head == null || k.compareTo(head.key) < 0) {
+            Node n = new Node(k, value, head);
+            head = n;
+            size++;
+        } else if (k.equals(p.key)) {
+            p.value = value;
+        } else if (k.compareTo(p.key) > 0 && p.next == null) {
+            p.next = new Node(k, value, null);
+            size++;
+        } else if (k.compareTo(p.key) > 0 && k.compareTo(p.next.key) < 0) {
+            Node temp = new Node(k, value, p.next);
+            p.next = temp;
+            size++;
+        } else {
+            putHelper(k, value, p.next);
+        }
     }
       
 //  get(...): Return the value associated with the variable var, or return null
 //  if k is not in the table.
     
     public Value get(String k) {
-        // your code here
-        return null;   // just to get it to compile
+        Node p = find(k, head);
+        if (p == null) return null;
+        else return p.value;
     }
     
     // Just a membership method
@@ -65,8 +85,7 @@ public class SymbolTable<Value> implements Iterable<String>{
     }
     
     public boolean isEmpty() {
-        // your code here
-        return false;   // just to get it to compile
+        return size() == 0;
     } 
     
     // Delete node containing variable k from the table; do nothing if not found
@@ -149,8 +168,7 @@ public class SymbolTable<Value> implements Iterable<String>{
     // usual ADT interface method, uses private variable to keep track of size
     
     public int size() {
-        // your code here
-        return 0;   // just to get it to compile 
+        return size;
     } 
     
 //     size(...):  Return the number of entries in the table whose variables are
@@ -231,12 +249,11 @@ public class SymbolTable<Value> implements Iterable<String>{
         SymbolTable<Integer> S = new SymbolTable<Integer>(); 
         
         // Insert 3 (key,value) pairs and test basic methods
-        
-        S.put("e",3); 
+        S.put("e",3);
         S.put("c",1);
         S.put("b",1);
         
- /*    Use step-wise refinement: uncover one test at a time as you develop the methods
+ //    Use step-wise refinement: uncover one test at a time as you develop the methods
  
         System.out.println("\nTest 01: Should print out:\n(b,1) : (c,1) : (e,3)"); 
         System.out.println(S); 
@@ -269,7 +286,7 @@ public class SymbolTable<Value> implements Iterable<String>{
         System.out.println("\nTest 09: Should print out:\ntrue"); 
         System.out.println(S.contains("e"));  
         
-        S.put("y",3); 
+        /*S.put("y",3); 
         S.put("q",2);
         S.put("k",5);
      
