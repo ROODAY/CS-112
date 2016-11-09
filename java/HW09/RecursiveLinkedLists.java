@@ -16,7 +16,7 @@ public class RecursiveLinkedLists {
         public String toString() {
             if (this.next == null) {
                 return " -> " + this.item + " -> .";
-            }
+            } 
             else {
                 return " -> " + this.item + next;
             }
@@ -89,22 +89,37 @@ public class RecursiveLinkedLists {
     // Problem B.2.E
     
     public static Node everyOther(Node p) {
-        // your code here
-        return null;   // just to get it to compile
+        if (p == null) return p;
+        everyOtherHelper(p);
+        return p;
+    }
+
+    private static void everyOtherHelper(Node p) {
+        if (p.next != null) p.next = p.next.next;
+        if (p.next != null) everyOtherHelper(p.next);
     }
     
     // Problem B.2.F
     
     public static boolean equalLists(Node p,Node q) {
-        // your code here
-        return false;   // just to get it to compile        
+        if (p.item != q.item) return false;
+        if (p.next != null && q.next != null) return equalLists(p.next, q.next);
+        if (p.next == null && q.next == null) return true;
+        return false;
     }    
     
     // Problem B.2.G
     
     public static boolean prefix(Node p, Node q)  {
-        // your code here
-        return false;   // just to get it to compile
+        if (p == null) return true;
+        return prefixHelper(p,q);
+    }
+
+    private static boolean prefixHelper(Node p, Node q) {
+        if (p.item != q.item) return false;
+        if (p.next != null && q.next != null) return prefixHelper(p.next, q.next);
+        if (p.next == null && q.next != null) return true;
+        return false;
     }
     
     // Problem B.2.H
@@ -177,8 +192,55 @@ public class RecursiveLinkedLists {
         p = new Node(2, new Node(5, new Node(4, new Node(6, new Node(2, new Node(9, null))))));
         System.out.println("\nTest 8:  should print out:\n -> 2 -> 5 -> 4 -> 6 -> 2 -> 9 -> .");
         System.out.println(deleteNth(p,13));
-    }
-    
+
+        p = null;
+        System.out.println("\nTest 9:  should print out:\nnull");
+        System.out.println(everyOther(p));
+
+        p = new Node(4, new Node(5, new Node(7, null)));
+        System.out.println("\nTest 10:  should print out:\n -> 4 -> 7 -> .");
+        System.out.println(everyOther(p));
+
+        p = new Node(4, new Node(5, new Node(7, new Node(2, new Node(8, new Node(1, null))))));
+        System.out.println("\nTest 11:  should print out:\n -> 4 -> 7 -> 8 -> .");
+        System.out.println(everyOther(p));
+
+        Node q = new Node(2, new Node(5, new Node(4, new Node(6, new Node(2, new Node(9, null))))));
+        Node w = new Node(2, new Node(5, new Node(4, new Node(6, new Node(2, new Node(9, null))))));
+        Node e = new Node(2, new Node(5, new Node(2, new Node(6, new Node(2, new Node(9, null))))));
+        Node r = new Node(2, new Node(5, new Node(4, new Node(6, new Node(2, null)))));
+        p = new Node(1, new Node(5, new Node(4, new Node(6, new Node(2, new Node(9, null))))));
+
+        System.out.println("\nTest 12:  should print out:\ntrue");
+        System.out.println(equalLists(q,w));
+
+        System.out.println("\nTest 13:  should print out:\nfalse");
+        System.out.println(equalLists(q,e));
+
+        System.out.println("\nTest 14:  should print out:\nfalse");
+        System.out.println(equalLists(q,r));
+
+        System.out.println("\nTest 15:  should print out:\nfalse");
+        System.out.println(equalLists(q,p));
+
+        Node head2 = arrayToLinkedList(new int[] {2,5,4,6,2,9});
+
+        System.out.println("\nTest 16: Should print out:\ntrue");
+        System.out.println(prefix(null,head));      
+        
+        System.out.println("\nTest 17: Should print out:\ntrue");
+        System.out.println(prefix(head, arrayToLinkedList(new int[] {3, 6, 9, 12, 16})));
+        
+        System.out.println("\nTest 18: Should print out:\ntrue");
+        System.out.println(prefix(head,head)); 
+        
+        System.out.println("\nTest 19: Should print out:\nfalse");
+        System.out.println(prefix(head,head2));
+        
+        System.out.println("\nTest 20: Should print out:\nfalse");
+        System.out.println(prefix(head,null));
+        
+        System.out.println("\nTest 21: Should print out:\nfalse");
+        System.out.println(prefix(head, arrayToLinkedList(new int[] {3, 6, 9} )));
+    }   
 }
-
-
