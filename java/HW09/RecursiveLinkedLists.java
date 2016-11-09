@@ -112,31 +112,60 @@ public class RecursiveLinkedLists {
     
     public static boolean prefix(Node p, Node q)  {
         if (p == null) return true;
+        if (q == null) return false;
         return prefixHelper(p,q);
     }
 
     private static boolean prefixHelper(Node p, Node q) {
         if (p.item != q.item) return false;
         if (p.next != null && q.next != null) return prefixHelper(p.next, q.next);
-        if (p.next == null && q.next != null) return true;
+        if (p.next == null) return true;
         return false;
     }
     
     // Problem B.2.H
     
     public static boolean sublist(Node p, Node q)  {
-        // your code here
-        return false;   // just to get it to compile
+        if (p == null) return true;
+        return sublistHelper(p,q);
+    }
+
+    private static boolean sublistHelper(Node p, Node q) {
+        if (prefix(p,q)) return true;
+        if (q.next == null) return false;
+        return sublistHelper(p, q.next);
     }
     
     
     // Problem B.2.I
     
     public static Node splice(int n, Node p, Node q)  {
-        // your code here
-        return null;   // just to get it to compile
-    }     
-    
+        if (p == null) return q;
+        if (q == null) return p;
+        if (n < 1) return append(q, p);
+        Node c = spliceHelper(n, p, q, 1);
+        return p;
+    }
+
+    private static Node spliceHelper(int n, Node p, Node q, int count) {
+        if (n == count) {
+            q = append(q, p.next);
+            p.next = null;
+            return append(p, q);
+        } else {
+            if (p.next == null) return append(p, q);
+            return spliceHelper(n, p.next, q, ++count);
+        }
+    }
+
+    private static Node append( Node p, Node q ) {
+        if ( p == null) 
+           return q; 
+        else {
+          p.next = append( p.next, q );
+          return p;
+        }
+     }
     
     // Problem B.2.J   
     
@@ -223,6 +252,7 @@ public class RecursiveLinkedLists {
         System.out.println("\nTest 15:  should print out:\nfalse");
         System.out.println(equalLists(q,p));
 
+        head = new Node(3, new Node(6, new Node( 9, new Node(12, null ) ) ) );
         Node head2 = arrayToLinkedList(new int[] {2,5,4,6,2,9});
 
         System.out.println("\nTest 16: Should print out:\ntrue");
@@ -242,5 +272,56 @@ public class RecursiveLinkedLists {
         
         System.out.println("\nTest 21: Should print out:\nfalse");
         System.out.println(prefix(head, arrayToLinkedList(new int[] {3, 6, 9} )));
+
+        p = new Node(4, new Node(2, new Node(5, new Node(9, new Node(1, new Node(6, null))))));
+        q = new Node(5, new Node(9, new Node(1, null)));
+        r = new Node(1, null);
+        Node s = new Node(1, new Node(6, new Node(6, null)));
+        Node t = null;
+        Node u = new Node(2, new Node(5, new Node(1, null)));
+
+        System.out.println("\nTest 22: Should print out:\ntrue");
+        System.out.println(sublist(p,p));
+
+        System.out.println("\nTest 23: Should print out:\ntrue");
+        System.out.println(sublist(t,p));
+
+        System.out.println("\nTest 24: Should print out:\ntrue");
+        System.out.println(sublist(t,t));
+
+        System.out.println("\nTest 25: Should print out:\ntrue");
+        System.out.println(sublist(q,p));
+
+        System.out.println("\nTest 26: Should print out:\nfalse");
+        System.out.println(sublist(p,q));
+
+        System.out.println("\nTest 27: Should print out:\ntrue");
+        System.out.println(sublist(r,p));
+
+        System.out.println("\nTest 28: Should print out:\nfalse");
+        System.out.println(sublist(s,p));
+
+        System.out.println("\nTest 29: Should print out:\nfalse");
+        System.out.println(sublist(u,p));
+
+        head = new Node(1, new Node(2, new Node(3, null)));
+        Node other = new Node(5, new Node(6, new Node(7, null)));
+        System.out.println("\nTest 30: Should print out:\n -> 1 -> 5 -> 6 -> 7 -> 2 -> 3 -> .");
+        System.out.println(splice(1,head,other));
+
+        head = new Node(1, new Node(2, new Node(3, null)));
+        other = new Node(5, new Node(6, new Node(7, null)));
+        System.out.println("\nTest 31: Should print out:\n -> 1 -> 2 -> 3 -> 5 -> 6 -> 7 -> .");
+        System.out.println(splice(3,head,other));
+
+        head = new Node(1, new Node(2, new Node(3, null)));
+        other = new Node(5, new Node(6, new Node(7, null)));
+        System.out.println("\nTest 32: Should print out:\n -> 5 -> 6 -> 7 -> 1 -> 2 -> 3 -> .");
+        System.out.println(splice(0,head,other));
+
+        head = new Node(1, new Node(2, new Node(3, null)));
+        other = new Node(5, new Node(6, new Node(7, null)));
+        System.out.println("\nTest 33: Should print out:\n -> 1 -> 2 -> 3 -> 5 -> 6 -> 7 -> .");
+        System.out.println(splice(10,head,other));
     }   
 }
