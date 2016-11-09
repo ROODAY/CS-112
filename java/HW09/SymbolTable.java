@@ -1,6 +1,7 @@
-/* File: SymbolTable.java
- * Author: Wayne Snyder
- * Date: 11/5/16
+/* 
+ * File: SymbolTable.java
+ * Author: Rudhra Raveendran (rooday@bu.edu)
+ * Date: 11/08/2016
  * Purpose: This is the template for HW09 for CS 112; it is basically an implementation of the
  *          ordered symbol table specified in Sedgewick's Algorithms, http://algs4.cs.princeton.edu/31elementary/, 
  *          except that keys must be Strings and instead of keys() we use iterator().  
@@ -60,8 +61,7 @@ public class SymbolTable<Value> implements Iterable<String>{
     // Just a membership method
     
     public boolean contains(String k) {
-        // your code here
-        return false;    // just to get it to compile
+        return (find(k) != null);
     }
     
     public boolean isEmpty() {
@@ -177,6 +177,16 @@ public class SymbolTable<Value> implements Iterable<String>{
             return ("(" + q.key + "," + q.value + ")");
         else
             return "(" + q.key + "," + q.value + ") : " + toStringHelp(q.next); 
+    }
+
+    private Node find(String s) {
+        return find(s, head);
+    }
+
+    private Node find(String k, Node p) {
+        if (k.equals(p.key)) return p;
+        if (p.next != null) return find(k, p.next);
+        return null;
     }
    
     /*  NOTE: The iterator code will not compile until you put all the methods required
