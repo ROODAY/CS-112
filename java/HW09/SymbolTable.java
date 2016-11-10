@@ -9,12 +9,6 @@
 
 import java.util.Iterator;
 
-//public class SymbolTable<Value> {
-
-/*   NOTE:  This file will not compile unless it contains the iterator() method required
- *     by the iterface Iterable. So wait until you are ready to implement the iterators
- *     and then substitute the next line for the first line of the class definition
- */
 public class SymbolTable<Value> implements Iterable<String>{
     
     // basic definition of the Node class; this is an "inner class" inside class SymbolTable
@@ -205,11 +199,6 @@ public class SymbolTable<Value> implements Iterable<String>{
         return null;
     }
    
-    /*  NOTE: The iterator code will not compile until you put all the methods required
-     *    by the interface Iterator<String> inside It, and same for ItRange.
-     *    So keep this commented out until you are ready to implement the iterators.
-     */
-
     public Iterator<String> iterator() {
         return new It();
     }
@@ -238,9 +227,7 @@ public class SymbolTable<Value> implements Iterable<String>{
             }
         }
 
-        public void remove() {
-            
-        }
+        public void remove() {}
     }
     
     // similar to previous, but for a specific range
@@ -278,9 +265,7 @@ public class SymbolTable<Value> implements Iterable<String>{
             }
         }
 
-        public void remove() {
-            
-        }
+        public void remove() {}
     }
     
     public static void main(String[] arg) {
