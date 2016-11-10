@@ -177,12 +177,16 @@ public class RecursiveLinkedLists {
     
     private static void intersectionHelper(Node p, Node q, Node c) {
         if (p != null && q != null) {
-            System.out.println("Somewhere");
+            System.out.println("p: " + p.item + ", q: " + q.item);
             if (p.item == q.item) {
-                System.out.println("Ayy");
                 c = new Node(p.item, null);
+                System.out.println("Match found: c " + c);
                 intersectionHelper(p.next, q.next, c.next);
-            } else {
+            } else if (p.item < q.item) {
+                System.out.println("Traversing p");
+                intersectionHelper(p.next, q, c);
+            }  else if (p.item > q.item) {
+                System.out.println("Traversing q");
                 intersectionHelper(p, q.next, c);
             }
         }
