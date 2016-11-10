@@ -2,8 +2,8 @@
  * File: SymbolTable.java
  * Author: Rudhra Raveendran (rooday@bu.edu)
  * Date: 11/08/2016
- * Purpose: This is the template for HW09 for CS 112; it is basically an implementation of the
- *          ordered symbol table specified in Sedgewick's Algorithms, http://algs4.cs.princeton.edu/31elementary/, 
+ * Purpose: This class is basically an implementation of the ordered symbol table 
+ *          specified in Sedgewick's Algorithms, http://algs4.cs.princeton.edu/31elementary/, 
  *          except that keys must be Strings and instead of keys() we use iterator().  
  */
 
@@ -83,22 +83,48 @@ public class SymbolTable<Value> implements Iterable<String>{
     // Delete node containing variable k from the table; do nothing if not found
     
     public void delete(String k) {
-        // your code here
+        if (contains(k)) {
+            if (head.key.equals(k)) {
+                head = head.next;
+                size--;
+            } else {
+                deleteHelper(k, head.next, head);
+                size--;
+            }
+        }
+    }
+
+    public void deleteHelper(String s, Node current, Node previous) {
+        if (current != null) {
+            if (current.key.equals(s)) {
+                previous.next = current.next;
+            } else {
+                deleteHelper(s, current.next, current);
+            }
+        }
     }
     
     
     // Return minimal variable in lexicographic ordering, or null if table is empty
     
     public String min() {
-        // your code here
-        return "";   // just to get it to compile
+        if (isEmpty()) return null;
+        return head.key;
     }
     
     // Same as last, but for maximum, which is at the end of the LL
     
     public String max() {
-        // your code here
-        return "";   // just to get it to compile
+        if (isEmpty()) return null;
+        return lastNode(head).key;
+    }
+
+    public Node lastNode(Node p) {
+        if (p.next != null) {
+            return lastNode(p.next);
+        } else {
+            return p;
+        }
     }
     
     
@@ -108,6 +134,7 @@ public class SymbolTable<Value> implements Iterable<String>{
 //     var into the table!) This is comparable to the mathematical function floor(...).
     
     public String floor(String k) {
+        if (isEmpty() || (head.key.compareTo(k) > 0)) return null;
         // your code here
         return "";   // just to get it to compile     
     }
@@ -119,6 +146,7 @@ public class SymbolTable<Value> implements Iterable<String>{
 //     var into the table!) This is comparable to the mathematical function ceiling(...). 
     
     public String ceiling(String k) {
+        if (isEmpty() || (lastNode(head).key.compareTo(k) < 0)) return null;
         // your code here
         return "";   // just to get it to compile      
     }
@@ -365,7 +393,7 @@ public class SymbolTable<Value> implements Iterable<String>{
         }
         System.out.println();
         
-        /*S.delete("q"); 
+        S.delete("q"); 
         S.delete("e"); 
         S.delete("c");
         S.delete("s"); 
@@ -375,10 +403,10 @@ public class SymbolTable<Value> implements Iterable<String>{
         System.out.println(S); 
         
         System.out.println("\nTest 17: Should print out:\n0");  
-        S.delete("b"); 
+        S.delete("b");
         System.out.println(S.size()); 
         
-        System.out.println("\nTest 18: Should print out:\nnull");  
+        /*System.out.println("\nTest 18: Should print out:\nnull");  
         System.out.println(S.min()); 
         
         System.out.println("\nTest 19: Should print out:\nnull");  
