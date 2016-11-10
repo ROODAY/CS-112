@@ -210,7 +210,8 @@ public class SymbolTable<Value> implements Iterable<String>{
     /*  NOTE: The iterator code will not compile until you put all the methods required
      *    by the interface Iterator<String> inside It, and same for ItRange.
      *    So keep this commented out until you are ready to implement the iterators.
-     
+     */
+
     public Iterator<String> iterator() {
         return new It();
     }
@@ -219,8 +220,29 @@ public class SymbolTable<Value> implements Iterable<String>{
     // variable cursor to record where in the iteration we are
     
     private class It implements Iterator<String> {
-        
-        // your code here, straight-forward modification of code from Lab 09
+        private Node cursor;
+
+        public It() {
+            cursor = head;
+        }
+
+        public boolean hasNext() {
+            return cursor != null;
+        }
+
+        public String next() {
+            if (hasNext()) {
+                Node result = cursor;
+                cursor = cursor.next;
+                return result.key;
+            } else {
+                return null;
+            }
+        }
+
+        public void remove() {
+            
+        }
     }
     
     // similar to previous, but for a specific range
@@ -234,14 +256,34 @@ public class SymbolTable<Value> implements Iterable<String>{
     // [lo .. hi].
     
     private class ItRange implements Iterator<String> {
-        
-          // your code here. Note that you must provide a constructor as shown
-          // in the previous method, which takes lower bound lo and upper bound hi
-          // and uses them to set the cursor and determine when hasNext() will return false.
-          
+        private Node cursor;
+        private String low;
+        private String high;
+
+        public ItRange(String lo, String hi) {
+            cursor = head;
+            low = lo;
+            high = hi;
+        }
+
+        public boolean hasNext() {
+            return ((cursor != null) && (cursor.key.compareTo(low) >= 0 && cursor.key.compareTo(high) <= 0));
+        }
+
+        public String next() {
+            if (hasNext()) {
+                Node result = cursor;
+                cursor = cursor.next;
+                return result.key;
+            } else {
+                return null;
+            }
+        }
+
+        public void remove() {
+            
+        }
     }
-    
-    */
     
     public static void main(String[] arg) {
         
@@ -286,7 +328,7 @@ public class SymbolTable<Value> implements Iterable<String>{
         System.out.println("\nTest 09: Should print out:\ntrue"); 
         System.out.println(S.contains("e"));  
         
-        /*S.put("y",3); 
+        S.put("y",3); 
         S.put("q",2);
         S.put("k",5);
      
@@ -297,7 +339,7 @@ public class SymbolTable<Value> implements Iterable<String>{
         }
         System.out.println(); 
                         
-        System.out.println("\nTest 11: Should print out:\nb c e k q s y");                                       
+        /*System.out.println("\nTest 11: Should print out:\nb c e k q s y");                                       
         for(String k : S) {
             System.out.print(k + " ");
         }
@@ -331,7 +373,7 @@ public class SymbolTable<Value> implements Iterable<String>{
         }
         System.out.println();
         
-        S.delete("q"); 
+        /*S.delete("q"); 
         S.delete("e"); 
         S.delete("c");
         S.delete("s"); 
