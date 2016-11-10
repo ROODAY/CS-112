@@ -249,6 +249,14 @@ public class SymbolTable<Value> implements Iterable<String>{
             cursor = head;
             low = lo;
             high = hi;
+            setCursor();
+        }
+
+        public void setCursor() {
+            if (cursor.key.compareTo(low) < 0) {
+                cursor = cursor.next;
+                setCursor();
+            }
         }
 
         public boolean hasNext() {
