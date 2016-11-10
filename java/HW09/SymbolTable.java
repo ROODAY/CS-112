@@ -9,15 +9,13 @@
 
 import java.util.Iterator;
 
-public class SymbolTable<Value> {
+//public class SymbolTable<Value> {
 
 /*   NOTE:  This file will not compile unless it contains the iterator() method required
  *     by the iterface Iterable. So wait until you are ready to implement the iterators
  *     and then substitute the next line for the first line of the class definition
- 
+ */
 public class SymbolTable<Value> implements Iterable<String>{
-
-*/
     
     // basic definition of the Node class; this is an "inner class" inside class SymbolTable
     
@@ -339,7 +337,8 @@ public class SymbolTable<Value> implements Iterable<String>{
         }
         System.out.println(); 
                         
-        /*System.out.println("\nTest 11: Should print out:\nb c e k q s y");                                       
+        System.out.println("\nTest 11: Should print out:\nb c e k q s y");
+                                 
         for(String k : S) {
             System.out.print(k + " ");
         }

@@ -173,40 +173,20 @@ public class RecursiveLinkedLists {
         Node c = intersectionHelper(p,q);
         return c;
     }
-    private static Node intersectionHelper(Node p, Node q)
-    {
+
+    private static Node intersectionHelper(Node p, Node q) {
         Node c = null;
         if (p != null && q != null) {
-            //System.out.println("p: " + p.item + ", q: " + q.item);
             if (p.item == q.item) {
                 c = new Node(p.item, null);
-                //System.out.println("Match found: c " + c);
                 c.next = intersectionHelper(p.next, q.next);
             } else if (p.item < q.item) {
-                //System.out.println("Traversing p");
                 c = intersectionHelper(p.next, q);
             }  else if (p.item > q.item) {
-                //System.out.println("Traversing q");
                 c = intersectionHelper(p, q.next);
             }
         }
         return c;
-    }
-    private static void intersectionHelper(Node p, Node q, Node c) {
-        if (p != null && q != null) {
-            System.out.println("p: " + p.item + ", q: " + q.item);
-            if (p.item == q.item) {
-                c = new Node(p.item, null);
-                System.out.println("Match found: c " + c);
-                intersectionHelper(p.next, q.next, c.next);
-            } else if (p.item < q.item) {
-                System.out.println("Traversing p");
-                intersectionHelper(p.next, q, c);
-            }  else if (p.item > q.item) {
-                System.out.println("Traversing q");
-                intersectionHelper(p, q.next, c);
-            }
-        }
     }
     
     public static void main(String [] args) {
