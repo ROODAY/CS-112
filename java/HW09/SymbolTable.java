@@ -135,8 +135,13 @@ public class SymbolTable<Value> implements Iterable<String>{
     
     public String floor(String k) {
         if (isEmpty() || (head.key.compareTo(k) > 0)) return null;
-        // your code here
-        return "";   // just to get it to compile     
+        if ((head.key.compareTo(k) <= 0) && (head.next.key.compareTo(k) > 0)) return head.key;
+        return floorHelper(k, head, head.next);
+    }
+
+    private String floorHelper(String k, Node current, Node next) {
+        if (((current.key.compareTo(k) <= 0) && (next == null)) || ((current.key.compareTo(k) <= 0) && (next.key.compareTo(k) > 0))) return current.key;
+        return floorHelper(k, next, next.next);
     }
 
     
@@ -147,8 +152,13 @@ public class SymbolTable<Value> implements Iterable<String>{
     
     public String ceiling(String k) {
         if (isEmpty() || (lastNode(head).key.compareTo(k) < 0)) return null;
-        // your code here
-        return "";   // just to get it to compile      
+        if (head.key.compareTo(k) >= 0) return head.key;
+        return ceilingHelper(k, head.next, head);
+    }
+
+    private String ceilingHelper(String k, Node current, Node prev) {
+        if ((current.key.compareTo(k) > 0) && (prev.key.compareTo(k) <= 0)) return current.key;
+        return ceilingHelper(k, current.next, current);
     }
 
     
@@ -158,8 +168,18 @@ public class SymbolTable<Value> implements Iterable<String>{
 //     inserted (do NOT insert var into the table). 
     
     public int rank(String k)   {
-        // your code here
-        return 0;   // just to get it to compile 
+        if (head.key.compareTo(k) > 0) return 0;
+        return rankHelper(k, 1, head);
+    }
+
+    private int rankHelper(String k, int count, Node current) {
+        //System.out.println("k: " + k + ", node: " + current.key + ", count: " + count);
+        if (current == null) return count;
+        if (current.key.compareTo(k) >= 0) {
+            return --count;
+        } else {
+            return rankHelper(k, ++count, current.next);
+        }
     }
     
 //     select(...):   Return the variable which is at rank r in the linked list (starting
@@ -168,20 +188,33 @@ public class SymbolTable<Value> implements Iterable<String>{
 //     of the linked list, return null.
     
     public String select(int r) {
-        // your code here
-        return "";   // just to get it to compile 
+        if (r < 0 || r >= size) return null;
+        return selectHelper(r, 0, head).key;
+    }
+
+    private Node selectHelper(int r, int count, Node current) {
+        if (count == r) return current;
+        return selectHelper(r, ++count, current.next);
     }
     
     // delete minimal element; do nothing if table is empty
     
     public void deleteMin() {
-       // your code here
+       head = head.next;
     }
     
     // Same as last but for max
     
     public void deleteMax() {
-        // your code here
+
+    }
+
+    public void deleteMaxHelper(Node p) {
+        if (p.next.next != null) {
+            lastNode(p.next);
+        } else {
+            p.next = null;
+        }
     }
     
     
@@ -406,7 +439,7 @@ public class SymbolTable<Value> implements Iterable<String>{
         S.delete("b");
         System.out.println(S.size()); 
         
-        /*System.out.println("\nTest 18: Should print out:\nnull");  
+        System.out.println("\nTest 18: Should print out:\nnull");  
         System.out.println(S.min()); 
         
         System.out.println("\nTest 19: Should print out:\nnull");  
@@ -499,9 +532,7 @@ public class SymbolTable<Value> implements Iterable<String>{
             String s = it.next();
             System.out.print( "(" + s + " : " + T.get(s) + ")  ");
         }
-        System.out.println(); 
-  */      
-        
+        System.out.println();
     }
 }
 
