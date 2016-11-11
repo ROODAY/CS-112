@@ -8,7 +8,7 @@
 import java.util.Iterator;
 
 public class LinkedList implements Iterable<Integer> { 
-
+    
     // Private class for Node so that the ADT is a LinkedList
     private class Node {
         int item;

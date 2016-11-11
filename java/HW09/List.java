@@ -110,7 +110,6 @@ public class List implements Iterable<Integer> {
         for(char c : B) {        
             System.out.print(c + " ");   
         }
-        System.out.println(); 
-        
+        System.out.println();
     }
 }
