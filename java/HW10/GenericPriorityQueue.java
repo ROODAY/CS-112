@@ -1,13 +1,8 @@
-/* File: GenericPriorityQueue.java
- * Date: 11/10/2016
- * Author:  Wayne Snyder (waysnyder@gmail.com)
- * Class: CS 112, Fall 2016
- * Purpose: This is the template for HW 10, Problem B.1 (lab problem)
- *          Right now, this just implements a stack, with the top of the stack
- *          at the left in the printout (labeled as Front). You must implement this
- *          as a generic priority queue. The ONLY parts that you must change are
- *          the insert method, and the main method, where you should test your program
- *          on Integers, Strings, and Students.
+/* 
+ * File: GenericPriorityQueue.java
+ * Author: Rudhra Raveendran (rooday@bu.edu)
+ * Date: 11/15/2016
+ * Purpose: This class implements a Generic Priority Queue
  */
 
 public class GenericPriorityQueue<Item extends Comparable<Item>> {
