@@ -119,7 +119,15 @@ public class TreeRecursion {
   // print out a string representation of a binary tree using parentheses, prefix style
   
   private static String treeToString2(Node r) {
-    return "";
+    if (r.left != null && r.right != null) {
+      return r.item + "(" + treeToString2(r.left) + "," + treeToString2(r.right) + ")";
+    } else if (r.left == null && r.right != null) {
+      return r.item + "(.," + treeToString2(r.right) + ")";
+    } else if (r.left != null && r.right == null) {
+      return r.item + "(" + treeToString2(r.left) + ",.)";
+    } else {
+      return r.item + "(.,.)";
+    }
   }
     
   // Count the number of leaves in a binary tree
@@ -218,14 +226,14 @@ public class TreeRecursion {
     System.out.println("\n[2] Should print out:\n( 1 ( 2 ( 3 ((( 4 ) 5 ) 6 ))))"); 
     System.err.println(treeToString(root2)); 
     
-    /*System.out.println("\nTesting treeToString2....");
+    System.out.println("\nTesting treeToString2....");
     System.out.println("\n[3] Should print out:\n5(2(1(.,.),4(.,.)),9(7(.,.),12(.,.)))"); 
     System.err.println(treeToString2(root1)); 
     
     System.out.println("\n[4] Should print out:\n1(.,6(2(.,4(3(.,.),5(.,.))),.))"); 
     System.err.println(treeToString2(root3)); 
     
-    System.out.println("\nTesting numLeaves ....");
+    /*System.out.println("\nTesting numLeaves ....");
     System.out.println("\n[5] Should print out:\n0"); 
     System.err.println(numLeaves(root0)); 
     
