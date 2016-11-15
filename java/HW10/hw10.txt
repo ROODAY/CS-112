@@ -1,0 +1,12 @@
+Rudhra Raveendran
+11/14/2016
+
+1.
+	a. 11
+	b. 3
+	c. 3
+	d. 3
+	e. 5, 10, 31, 49
+2.
+	a. 
+	b. Keys 20 - 30 can be inserted to the left of 31
