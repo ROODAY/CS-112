@@ -1,7 +1,8 @@
-/* File: Index.java
- * Author: Wayne Snyder
- * Date: 11/11/16
- * Purpose: This is the template for Problem B.3, HW 10, CS 112, Fall 2016
+/* 
+ * File: Index.java
+ * Author: Rudhra Raveendran (rooday@bu.edu)
+ * Date: 11/15/2016
+ * Purpose: This class 
  */
 
 import java.io.*;
@@ -16,11 +17,14 @@ public class Index {
     
     public Node(String v) {
       value = v;
+      next = null;
     }
-    
-    // Constructor(s) and toString (if you want to use it) go here
+
+    public Node(String v, Node n) {
+      value = v;
+      next = n;
+    }
   }
-  
 
   // nodes for the binary tree
   private class TreeNode {
@@ -29,7 +33,26 @@ public class Index {
     TreeNode left;
     TreeNode right;
     
-    // Constructor(s) and toString (if you want to use it) go here
+    public TreeNode(String k) {
+      key = k;
+      values = null;
+      left = null;
+      right = null;
+    }
+
+    public TreeNode(String k, Node v) {
+      key = k;
+      values = v;
+      left = null;
+      right = null;
+    }
+
+    public TreeNode(String k, Node v, TreeNode l, TreeNode r) {
+      key = k;
+      values = v;
+      left = l;
+      right = r;
+    }
   }
   
   
@@ -92,13 +115,38 @@ public class Index {
   // Interface methods
   
   public void insert(String key) {
-     
+    insertHelper(key, root);
+  }
+
+  private void insertHelper(String key, TreeNode n) {
+    if (n == null) {
+      n = new TreeNode(key);
+    } else {
+      if (key.compareTo(n.key) < 0) {
+        insertHelper(key, n.left);
+      } else if (key.compareTo(n.key) > 0) {
+        insertHelper(key, n.right);
+      }
+    }
   }
   
   public void insert(String key, String val) {
-    
+    insertHelper2(key, val, root);
   }
   
+  private void insertHelper2(String key, String val, TreeNode n) {
+    if (n == null) {
+      n = new TreeNode(key, new Node(val));
+    } else {
+      if (key.compareTo(n.key) < 0) {
+        insertHelper2(key, val, n.left);
+      } else if (key.compareTo(n.key) > 0) {
+        insertHelper2(key, val, n.right);
+      } else {
+        insertIntoLL(val, n.values);
+      }
+    }
+  }
  
   
   public void insert(String key, String[] values) {
@@ -117,7 +165,10 @@ public class Index {
     
   }
   
- 
+  private void insertIntoLL(String val, Node n) {
+    if (n == null) n = new Node(val);
+    else insertIntoLL(val, n.next);
+  }
   
   // methods to build inverted index
   
@@ -136,7 +187,7 @@ public class Index {
       {"Coke", "Salad", "Pasta" },            
       {"Pepsi", "Salad", "Chicken", "Salad" },   // Node duplicate value 
       {"Chicken", "Pasta"} };
-  /*   
+     
     D.insert("Ringo",  V[0]);
     D.insert("John",  V[1]);
     D.insert("George", V[2]);
@@ -176,7 +227,7 @@ public class Index {
     System.out.println("\n[4]: Testing height, should print out:\n2");
     System.out.println(D.height());
     
-    System.out.println("\n[5]: Testing getValues, should print out:\n[Chicken;Pasta;Milk]");
+    /*System.out.println("\n[5]: Testing getValues, should print out:\n[Chicken;Pasta;Milk]");
     System.out.println(D.getValues("George")); 
     
     System.out.println("\n[6]: Testing getValues, should print out:\n[]");
