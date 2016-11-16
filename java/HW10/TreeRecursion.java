@@ -133,36 +133,78 @@ public class TreeRecursion {
   // Count the number of leaves in a binary tree
   
   private static int numLeaves(Node r) {
-    return 0;
+    if (r == null)
+      return 0;
+    else if(r.left == null && r.right == null)
+     return 1;
+    else
+     return numLeaves(r.left) + numLeaves(r.right);
   }
     
   // reverse the tree by exchanging left and right pointers (you will modify the original tree)_
    
   public static Node reverse(Node r) {
-    return null;
-  }  
+    if (r == null) return null;
+    reverseHelper(r);
+    return r;
+  }
+
+  private static void reverseHelper(Node r) {
+    if (r != null) {
+      Node temp = r.right;
+      r.right = r.left;
+      r.left = temp;
+      reverse(r.right);
+      reverse(r.left);
+    }   
+  }
   
   // make a copy of a binary tree
   
   private static Node copy(Node r) {
-    return null;
+    return copyHelper(r);
+  }
+
+  private static Node copyHelper(Node r) {
+    if (r == null) return null;
+    Node n = new Node(r.item, null, null);
+    n.left = copyHelper(r.left);
+    n.right = copyHelper(r.right);
+    return n;
   }
     
   // return true if the binary tree satisfies the binary search tree property, false otherwise
   
   public static boolean isBST(Node r) {
+    return isBSTHelper(r, Integer.MIN_VALUE, Integer.MAX_VALUE);
+  }
+
+  private static boolean isBSTHelper(Node r, int lo, int hi) {
+    if (r == null) return true;
+    if (r.item > lo && r.item < hi) return isBSTHelper(r.left, lo, r.item) && isBSTHelper(r.right, r.item, hi);
     return false;
   }
   
   // return true if r is a degenerate (i.e., "linked-list") binary tree, ie.,  in which all nodes have 0 or 1 child
   
   public static boolean isDegenerate(Node r) {
-    return false;
+    if (r == null) return false;
+    if (r.left != null && r.right == null) {
+      return isDegenerate(r.left);
+    } else if (r.left == null && r.right != null) {
+      return isDegenerate(r.right);
+    } else if (r.left == null && r.right == null) {
+      return true;
+    } else {
+      return false;
+    }
   }
   
   // A perfect binary tree is a perfect triangle; test by checking that all subtrees have same size
   
   public static boolean isPerfect(Node r) {
+    if (r == null) return false;
+    if (size(r.left) == size(r.right)) return true;
     return false;
   }
 
@@ -233,7 +275,7 @@ public class TreeRecursion {
     System.out.println("\n[4] Should print out:\n1(.,6(2(.,4(3(.,.),5(.,.))),.))"); 
     System.err.println(treeToString2(root3)); 
     
-    /*System.out.println("\nTesting numLeaves ....");
+    System.out.println("\nTesting numLeaves ....");
     System.out.println("\n[5] Should print out:\n0"); 
     System.err.println(numLeaves(root0)); 
     
@@ -277,8 +319,8 @@ public class TreeRecursion {
     System.err.println(isBST(temp)); 
     
     System.out.println("\n[16] Should print out:\nfalse"); 
-    System.err.println(isBST(temp2)); 
-    
+    System.err.println(isBST(temp2));
+
     System.out.println("\n[17] Should print out:\nfalse"); 
     System.err.println(isBST(temp2)); 
     
@@ -334,7 +376,6 @@ public class TreeRecursion {
     if(IamDone)
       System.err.println("High Five!");
     else
-      System.err.println("Nope!"); 
- */     
+      System.err.println("Nope!");
   } 
 }
