@@ -38,7 +38,7 @@ public class GenericPriorityQueue<Item extends Comparable<Item>> {
         }
         size++; 
     }
-
+    
     private void insertInOrder(Item key, Node current) {
         Node next = current.next;
         if (next == null) {
@@ -52,7 +52,7 @@ public class GenericPriorityQueue<Item extends Comparable<Item>> {
             }
         }
     }
-
+    
     
     // Remove and return the item at the head of the list
     
@@ -79,12 +79,12 @@ public class GenericPriorityQueue<Item extends Comparable<Item>> {
         return size;
     }
     
-  
+    
     public String toString() {
-       return "Front:  " + queueToString(head);  
+        return "Front:  " + queueToString(head);  
     }
- 
-
+    
+    
     private String queueToString(Node p) {
         if (p == null)
             return ":Rear";
@@ -92,7 +92,7 @@ public class GenericPriorityQueue<Item extends Comparable<Item>> {
             return p.item + "  " + queueToString(p.next);
         }
     }
- 
+    
     public static void main(String[] args) {
         
         // Here is a simple test on Integers, which satisfy the Comparable interface.
@@ -117,11 +117,11 @@ public class GenericPriorityQueue<Item extends Comparable<Item>> {
         System.out.println("Max: " + S.getMax());
         System.out.println(S);
         
- 
+        
         // Now try it on Strings, which also satisfy the Comparable interface
         
         GenericPriorityQueue<String> T = new GenericPriorityQueue<String>();
-
+        
         T.insert("Giraffe");
         T.insert("Zebra");
         T.insert("Antelope");
@@ -137,7 +137,7 @@ public class GenericPriorityQueue<Item extends Comparable<Item>> {
         System.out.println(T);
         System.out.println("Max: " + T.getMax());
         System.out.println(T);
-
+        
         // Now try it on Students -- you must implement the compareTo in this class to get it to work
         
         GenericPriorityQueue<Student> U = new GenericPriorityQueue<Student>();
