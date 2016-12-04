@@ -1,0 +1,49 @@
+Rudhra Raveendran
+12/03/2016
+
+1.
+	a. All the functions perform far better than the Silly function.
+	b. The industrial strength algorithms weren't needed for this purpose, as the performed similarly to the naive implementations.
+	c. Naive Add was the simplest to perform reasonably well.
+2.
+	i.
+		Mean lookup cost: 204.20833
+		Optimal lookup cost: 195.31793212890625
+		St Dev bucket length: 4.2167306
+	ii.
+		Mean lookup cost: 204.20833
+		Optimal lookup cost: 195.31793212890625
+		St Dev bucket length: 4.2167306
+	iii. (LC was 769 and 2687)
+		Mean lookup cost: 204.20833
+		Optimal lookup cost: 195.31793212890625
+		St Dev bucket length: 4.2167306
+	a. 
+		Nothing changed when changing the LC multiplier
+	b. 
+		Since the result of multiplying the ASCII values of the letters with the LC multiplier and adding them is still being
+	  	modulo'd by the same bucket size, the lookup cost is not going to change as there is still the same number of buckets
+		to search from.
+3. 
+	i.
+		wayne wayen wanye waney waeyn waeny wyane wyaen wynae wynea wyean wyena wnaye wnaey wnyae wnyea wneay wneya weayn weany weyan weyna wenay wenya awyne awyen awnye awney aweyn aweny aywne aywen aynwe aynew ayewn ayenw anwye anwey anywe anyew anewy aneyw aewyn aewny aeywn aeynw aenwy aenyw ywane ywaen ywnae ywnea ywean ywena yawne yawen yanwe yanew yaewn yaenw ynwae ynwea ynawe ynaew ynewa yneaw yewan yewna yeawn yeanw yenwa yenaw nwaye nwaey nwyae nwyea nweay nweya nawye nawey naywe nayew naewy naeyw nywae nywea nyawe nyaew nyewa nyeaw neway newya neawy neayw neywa neyaw ewayn ewany ewyan ewyna ewnay ewnya eawyn eawny eaywn eaynw eanwy eanyw eywan eywna eyawn eyanw eynwa eynaw enway enwya enawy enayw enywa enyaw 
+		Mean lookup cost: 660.0
+		Optimal lookup cost: 64.95867919921875
+		St Dev bucket length: 34.497574
+	ii.
+		M: 67, LC: 1801
+		Mean lookup cost: 108.35821
+		Optimal lookup cost: 2.4994430541992188
+		St Dev bucket length: 14.550519
+	iii.
+		M: 67, LC: 1801, Seq Java HashCode
+		Mean lookup cost: 3.1044776
+		Optimal lookup cost: 2.4994430541992188
+		St Dev bucket length: 1.1000314
+	a. 
+		Changing the M and LC multiplier didn't have too much of an effect (unless M was made to be fairly big). Switching to a better function had a
+	    drastic improvement.
+	b. 
+		This happened because Add Lin Cong multiplies the ASCII values of a string by the same LC multiplier. This means the sum is of those
+		multiplications will be the same for every permutation of the same string. The industrial strength functions don't do this however.
+		(I'm not sure exactly what they're doing but I'm guessing they're using different numbers on each letter, similar to Sequential LC)
