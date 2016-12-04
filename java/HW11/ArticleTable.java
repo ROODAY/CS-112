@@ -72,10 +72,17 @@ public class ArticleTable implements Iterable<Article> {
     }
     
     public Article lookup(String title) {
-        Node n = lookup(root,title); 
-        if(n != null)
+        return lookupHelper(title, T[hash(title)]);
+    }
+    
+    private Article lookupHelper(String Title, Node n) {
+        if (n == null)
+            return n;
+        else if (title.compareTo(n.data.getTitle()) == 0)  
             return n.data; 
-        return null; 
+        else {
+            return lookupHelper(title, n.next);
+        }
     }
     
     public Iterator<Article> iterator() {
