@@ -4,6 +4,7 @@
  * Date: 12/03/2016
  * Purpose: This class implements a hash table that stores different articles
  */
+import java.util.Iterator;
 
 public class ArticleTable implements Iterable<Article> {
     
@@ -43,7 +44,7 @@ public class ArticleTable implements Iterable<Article> {
     public void insert(Article a) {
         T[hash(a.getTitle())] = insertHelper(a, T[hash(a.getTitle())]);
     } 
-
+    
     private Node insertHelper(Article a, Node n) {
         if ( n == null || a.getTitle().compareTo(n.data.getTitle()) < 0 ) {
             return new Node(a, n);
@@ -66,7 +67,7 @@ public class ArticleTable implements Iterable<Article> {
         else if (title.compareTo(t.data.getTitle()) == 0)  
             return t.next; 
         else {
-            t.next = delete(title, t.next); 
+            t.next = deleteHelper(title, t.next); 
             return t;
         }
     }
@@ -75,9 +76,9 @@ public class ArticleTable implements Iterable<Article> {
         return lookupHelper(title, T[hash(title)]);
     }
     
-    private Article lookupHelper(String Title, Node n) {
+    private Article lookupHelper(String title, Node n) {
         if (n == null)
-            return n;
+            return null;
         else if (title.compareTo(n.data.getTitle()) == 0)  
             return n.data; 
         else {
@@ -91,5 +92,59 @@ public class ArticleTable implements Iterable<Article> {
     
     
     private class It implements Iterator<Article> {
+        private int index = 0;
+        private Node cursor;
+        
+        public It() { 
+            setCursors();                       
+        }
+        
+        private void setCursors() {
+            if (T[index] == null) {
+                index++;
+                setCursors();
+            } else {
+                cursor = T[index];
+            }
+        }
+        
+        public boolean hasNext() {
+            //System.out.println("Index: " + index);
+            //System.out.println("Cursor: " + cursor);
+            if (cursor == null) return index < T.length;
+            return true;
+            /*if (index >= T.length) {
+                return false;
+            } else return index < T.length;*/
+        }
+        
+        private boolean hasNextCursor() {
+            return cursor != null;
+        }
+        
+        public Node getCursor() {
+            return cursor;
+        }
+        
+        public int getIndex() {
+            return index;
+        }
+        
+        public Article next() {
+            if(hasNext()) {
+                if (hasNextCursor()) {
+                    Node result = cursor;
+                    cursor = cursor.next;
+                    return result.data;
+                } else {
+                    if (++index < T.length) cursor = T[index];
+                    return next();
+                }
+            }
+            return null;
+        } 
+        
+        public void remove() {
+        }
     }      
 }

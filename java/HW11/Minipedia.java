@@ -32,7 +32,7 @@ public class Minipedia {
     return new DatabaseIterator(path);
   }
   
-  private static void addArticle(Scanner s, DumbList D) {
+  private static void addArticle(Scanner s, ArticleTable D) {
     System.out.println();
     System.out.println("Add an article");
     System.out.println("==============");
@@ -50,11 +50,11 @@ public class Minipedia {
       body += line + "\n";
     } while (!line.equals(""));
     
-    D.add(new Article(title, body));
+    D.insert(new Article(title, body));
   }
   
   
-  private static void removeArticle(Scanner s, DumbList D) {
+  private static void removeArticle(Scanner s, ArticleTable D) {
     System.out.println();
     System.out.println("Remove an article");
     System.out.println("=================");
@@ -63,11 +63,11 @@ public class Minipedia {
     String title = s.nextLine();
     
     
-    D.remove(title);
+    D.delete(title);
   }
   
   
-  private static void titleSearch(Scanner s, DumbList D) {
+  private static void titleSearch(Scanner s, ArticleTable D) {
     System.out.println();
     System.out.println("Search by article title");
     System.out.println("=======================");
@@ -97,10 +97,21 @@ public class Minipedia {
     System.out.println("Read " + db.getNumArticles() + 
                        " articles from disk.");
     
-    DumbList L = new DumbList(); 
+    ArticleTable L = new ArticleTable(); 
     Article[] A = getArticleList(db);
     L.initialize(A);
     
+    System.out.println(); 
+    Iterator<Article> it = L.iterator();
+    int count = 0;
+    while (it.hasNext()) {
+        //it.next();
+        //System.out.println(it.hasNext());
+        System.out.println(it.next().getTitle());
+        count++;
+    }
+    System.out.println("Total num of articles: " + count); 
+
     int choice = -1;
     do {
       System.out.println();
