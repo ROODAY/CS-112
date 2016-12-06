@@ -105,8 +105,6 @@ public class Minipedia {
     Iterator<Article> it = L.iterator();
     int count = 0;
     while (it.hasNext()) {
-        //it.next();
-        //System.out.println(it.hasNext());
         System.out.println(it.next().getTitle());
         count++;
     }
