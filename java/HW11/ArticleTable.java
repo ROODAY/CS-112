@@ -132,8 +132,7 @@ public class ArticleTable implements Iterable<Article> {
             if(hasNext()) {
                 Node result = cursor;
                 cursor = cursor.next;
-                if (cursor == null) {
-                    index++;
+                if (cursor == null && ++index < SIZE) {
                     setCursors();
                 }
                 return result.data;

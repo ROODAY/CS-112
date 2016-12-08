@@ -62,8 +62,8 @@ public class TermFrequencyTable implements Iterable<int[]>{
                     safe = false;
                     break;
                 }
-                if (safe) ones[index++] = temp1[i];
             }
+            if (safe) ones[index++] = temp1[i];
         }
         index = 0;
         for (int i = 0; i < temp2.length; i++) {
@@ -73,8 +73,8 @@ public class TermFrequencyTable implements Iterable<int[]>{
                     safe = false;
                     break;
                 }
-                if (safe) twos[index++] = temp2[i];
             }
+            if (safe) twos[index++] = temp2[i];
         }
         
         for (int i = 0; i < temp1.length; i++) {
@@ -161,8 +161,7 @@ public class TermFrequencyTable implements Iterable<int[]>{
             if(hasNext()) {
                 Node result = cursor;
                 cursor = cursor.next;
-                if (cursor == null) {
-                    index++;
+                if (cursor == null && ++index < SIZE) {
                     setCursors();
                 }
                 return result.termFreq;
