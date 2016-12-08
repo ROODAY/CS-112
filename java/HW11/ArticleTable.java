@@ -142,5 +142,5 @@ public class ArticleTable implements Iterable<Article> {
         
         public void remove() {
         }
-    }      
+    }
 }

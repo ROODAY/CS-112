@@ -101,14 +101,14 @@ public class Minipedia {
     Article[] A = getArticleList(db);
     L.initialize(A);
     
-    /*System.out.println(); 
+    System.out.println(); 
     Iterator<Article> it = L.iterator();
     int count = 0;
     while (it.hasNext()) {
         System.out.println(it.next().getTitle());
         count++;
     }
-    System.out.println("Total num of articles: " + count); */
+    System.out.println("Total num of articles: " + count);
 
     int choice = -1;
     do {

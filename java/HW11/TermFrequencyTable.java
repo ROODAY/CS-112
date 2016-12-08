@@ -1,7 +1,7 @@
 /* 
  * File: TermFrequencyTable.java
  * Author: Rudhra Raveendran (rooday@bu.edu)
- * Date: 12/7/2016
+ * Date: 12/07/2016
  * Purpose: This class calculates the cosine similarity between two documents
  */
 import java.util.Iterator;
