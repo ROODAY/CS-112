@@ -2,7 +2,7 @@
  * File: MiniGoogle.java
  * Author: Rudhra Raveendran (rooday@bu.edu)
  * Date: 12/07/2016
- * Purpose: This class 
+ * Purpose: This class implements a mini search engine using hashtables and cosine similarity
  */
 
 import java.util.*;
