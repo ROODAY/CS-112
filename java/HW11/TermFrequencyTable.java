@@ -5,6 +5,7 @@
  * Purpose: This class calculates the cosine similarity between two documents
  */
 import java.util.Iterator;
+import java.util.Arrays;
 
 public class TermFrequencyTable implements Iterable<int[]>{
     
@@ -106,13 +107,16 @@ public class TermFrequencyTable implements Iterable<int[]>{
     // Return the cosine similarity of the terms for the two documents stored in this table
     public double cosineSimilarity() {
         Iterator<int[]> it = iterator();
+        
         int[] A =  new int[SIZE];
         int[] B = new int[SIZE];
         int index = 0;
         while (it.hasNext()) {
             int[] n = it.next();
-            A[index] = n[0];
-            B[index++] = n[1];
+            if (index < SIZE) {
+                A[index] = n[0];
+                B[index++] = n[1];
+            }
         }
         return dotProduct(A,B) / (Math.sqrt(dotProduct(A,A)) * Math.sqrt(dotProduct(B,B)));
     }
@@ -127,6 +131,10 @@ public class TermFrequencyTable implements Iterable<int[]>{
     
     public Iterator<int[]> iterator() {
         return new It();
+    }
+    
+    public Iterator<String> iterator2() {
+        return new It2();
     }
     
     private class It implements Iterator<int[]> {
@@ -165,6 +173,50 @@ public class TermFrequencyTable implements Iterable<int[]>{
                     setCursors();
                 }
                 return result.termFreq;
+            }
+            return null;
+        } 
+        
+        public void remove() {
+        }
+    }
+    
+    private class It2 implements Iterator<String> {
+        private int index = 0;
+        private Node cursor;
+        
+        public It2() { 
+            setCursors();                       
+        }
+        
+        // Finds next non-null index in array of string linkedlists
+        private void setCursors() {
+            if (T[index] == null) {
+                if (++index < SIZE) {
+                    setCursors();
+                }
+            } else {
+                cursor = T[index];
+            }
+        }
+        
+        public boolean hasNext() {
+            return index < SIZE && cursor != null;
+        }
+        
+        private boolean hasNextCursor() {
+            return cursor != null;
+        }
+        
+        // Returns next string Node, calls setCursors when it reaches the end of a linkedlist
+        public String next() {
+            if(hasNext()) {
+                Node result = cursor;
+                cursor = cursor.next;
+                if (cursor == null && ++index < SIZE) {
+                    setCursors();
+                }
+                return result.term;
             }
             return null;
         } 
